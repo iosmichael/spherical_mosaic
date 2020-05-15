@@ -6,18 +6,22 @@ enable_testing()
 
 add_subdirectory(glog)
 
-find_package(OpenCV 3.4.1 REQUIRED)
+find_package(OpenCV 3.4.2 REQUIRED)
 find_package(Ceres REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
 
-message("OPENCV_VERSION: " ${OpenCV_VERSION} "     [MAKE SURE IT'S 3.4.1]")
+message("OPENCV_VERSION: " ${OpenCV_VERSION} "     [MAKE SURE IT'S 3.4.2]")
 
 include_directories(${OpenCV_INCLUDE_DIRS} ${CERES_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS} ${glog_INCLUDE_DIR} ${Boost_INCLUDE_DIRS})
 
-set(MOSAIC_SOURCE_FILE ransac.cpp)
+# file(GLOB MOSAIC_SOURCE_FILE "src/*.h" "src/*.cpp")
 
-add_executable(mosaic main.cpp ${MOSAIC_SOURCE_FILE})
+# set(CERES_SOURCE_FILE bal_test/bal_test.cpp)
+
+add_executable(mosaic main.cpp)
+
+# add_executable(mosaic ${CERES_SOURCE_FILE})
 
 target_link_libraries(mosaic ${OpenCV_LIBS} ${CERES_LIBRARIES} Boost::filesystem Eigen3::Eigen glog::glog)
 

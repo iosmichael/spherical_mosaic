@@ -1,22 +1,18 @@
 #pragma once
 
+#include <vector>
 #include <opencv/cv.hpp>
-#include <eigen3/Eigen/Core>
-
-namespace Mosaic {
 
 class Frame {
     public:
-    cv::Mat image;
+    cv::Mat imLeft, imRight;
+    cv::Mat mK;
 
-    // Image, Camera Pose (to reference frame), K and Kinv, id
-    // features and feature indices, normalized feature points
+    cv::Mat mR21;
+    std::vector<cv::KeyPoint> mLeftKpts, mRightKpts;
+    std::vector<cv::DMatch> mMatches;
+    std::vector<bool> mbInliers;
 
-}
+    Frame(cv::Mat &imLeft, cv::Mat &imRight, cv::Mat &mK);
 
-class Feature2D {
-    public:
-    // frame idx, uv_coords, SIFT_descriptors
-}
-
-}
+};

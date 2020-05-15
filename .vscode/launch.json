@@ -9,7 +9,26 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build/mosaic",
-            "args": [],
+            "args": ["${workspaceRoot}/dataset/calit2bldg"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "ceres-test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/build/mosaic",
+            "args": ["${workspaceRoot}/dataset/problem-49-7776-pre.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],

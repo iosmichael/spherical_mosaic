@@ -24,6 +24,7 @@ void printInstruction();
 void readImages(char *dirpath, std::vector<std::string> &image_path);
 
 int main(int argc, char** argv) {
+
     Mat gray1, gray2;
     if (argc != 2)
         return -1;
@@ -41,12 +42,12 @@ int main(int argc, char** argv) {
     
     std::string img1 = img_path.at(0);
     std::string img2 = img_path.at(1);
-    gray1 = imread(img1, IMREAD_GRAYSCALE);
-    gray2 = imread(img2, IMREAD_GRAYSCALE);
+    gray1 = cv::imread(img1, cv::IMREAD_GRAYSCALE);
+    gray2 = cv::imread(img2, cv::IMREAD_GRAYSCALE);
 
     std::vector<KeyPoint> kpt1, kpt2;
-    Mat desc1, desc2;
-    std::vector<DMatch> matches;
+    cv::Mat desc1, desc2;
+    std::vector<cv::DMatch> matches;
     featureDetections(gray1, gray2, kpt1, kpt2, desc1, desc2);
     featureMatching("knn", desc1, desc2, matches);
     drawFeatureCorrespondence(gray1, gray2, matches, kpt1, kpt2);
@@ -56,13 +57,13 @@ int main(int argc, char** argv) {
 }
 
 void featureDetections(Mat &src, Mat &tar, std::vector<KeyPoint> &kpt1, std::vector<KeyPoint> &kpt2, Mat &desc1, Mat &desc2){
-    cv::Ptr<cv::xfeatures2d::SURF> detector = cv::xfeatures2d::SURF::create();
+    cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create();
     detector -> detectAndCompute(src, Mat(), kpt1, desc1);
     detector -> detectAndCompute(tar, Mat(), kpt2, desc2);   
     Mat img_keypoints;
     drawKeypoints(src, kpt1, img_keypoints);
     //-- Show detected (drawn) keypoints
-    imshow("SURF Keypoints", img_keypoints);
+    imshow("SIFT Keypoints", img_keypoints);
     waitKey();
 }
 
@@ -131,6 +132,9 @@ void readImages(char *dirpath, std::vector<std::string> &image_path) {
     for (boost::filesystem::directory_entry &item : boost::filesystem::directory_iterator(dirpath)){
         std::string ext = boost::filesystem::extension(item.path());
         if (ext == ".png") {
+            image_path.push_back(item.path().string());
+        }
+        if (ext == ".jpg") {
             image_path.push_back(item.path().string());
         }
     }
