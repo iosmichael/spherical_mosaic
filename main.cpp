@@ -14,6 +14,11 @@ date: 5/13/2020
 #include <opencv2/xfeatures2d/nonfree.hpp>
 #include <opencv2/highgui.hpp>
 
+//new
+#include <numeric>
+#include <Eigen/Dense>
+// end new
+
 using namespace cv;
 
 void featureDetections(Mat &src, Mat &tar, std::vector<KeyPoint> &kpt1, std::vector<KeyPoint> &kpt2, Mat &desc1, Mat &desc2);
@@ -23,9 +28,22 @@ void drawFeatureCorrespondence(Mat &src, Mat &tar, std::vector<DMatch> &good_mat
 void printInstruction();
 void readImages(char *dirpath, std::vector<std::string> &image_path);
 
+
+//new begin
+static void meshgrid(const cv::Mat &xgv, const cv::Mat &ygv,
+              cv::Mat1i &X, cv::Mat1i &Y);
+static void meshgridTest(const cv::Range &xgv, const cv::Range &ygv,
+                         cv::Mat1i &X, cv::Mat1i &Y);
+cv::Mat homogenize(cv::Mat &x);
+cv::Mat dehomogenize(cv::Mat &x);
+cv::Mat mesh_coord(cv::Mat &img);
+cv::Mat camera_projection_matrix(cv::Mat &K,cv::Mat &R, cv::Mat &x);
+cv::Mat spherical_norm(cv::Mat &K, cv::Mat x_cam);
+// new end
+
 int main(int argc, char** argv) {
 
-    Mat gray1, gray2;
+    cv::Mat gray1, gray2;
     if (argc != 2)
         return -1;
     std::cout << argv[0] << std::endl;
@@ -139,3 +157,90 @@ void readImages(char *dirpath, std::vector<std::string> &image_path) {
         }
     }
 }
+
+
+//new begin
+cv::Mat homogenize(cv::Mat &x) {
+    // int row_size = x.rows;
+    int col_size = x.cols;
+    cv::Mat to_append = cv::Mat::ones(1, col_size, CV_64F);  // ncols cols, 1 row
+    x.push_back(to_append);
+    return x;
+
+}
+cv::Mat dehomogenize(cv::Mat &x) {
+    cv::Mat dehomo_x;
+    cv::Mat temp;
+    cv::divide(x.row(2), x.row(2), temp); //last row by last row. Add //Mat::ones(1, x.rows, CV_64F)) to directly add ones
+    dehomo_x.push_back(temp);
+    cv::divide(x.row(2), x.row(1), temp);
+    dehomo_x.push_back(temp);
+    cv::divide(x.row(2), x.row(0), temp);
+    dehomo_x.push_back(temp);
+    // dehomo_x is the desired output
+    return dehomo_x;
+}
+cv::Mat mesh_coord(cv::Mat &img) {
+    int row_size = img.rows;
+    int col_size = img.cols;
+    cv::Mat1i X, Y;
+    meshgridTest(cv::Range(0,col_size), cv::Range(0, row_size), X, Y); 
+    // std::cerr << X << std::endl;
+    // std::cerr << Y << std::endl;
+// https://stackoverflow.com/questions/49411997/c-create-3d-array-out-of-stacking-2d-arrays
+    cv::Mat mesh_coordinates[2] = {X,  Y};  // you can also use vector or some other container
+    int dims[3] = { 2, X.rows, X.cols }; // dimensions
+    cv::Mat mesh(3, dims, CV_8U);
+    for(int i = 0; i < 2; ++i)
+    {
+    uint8_t* ptr = &mesh.at<uint8_t>(i, 0, 0); // pointer to first element of slice i
+    cv::Mat meshgrid_final(X.rows, X.cols, CV_8U, (void*)ptr); // no data copy, see documentation
+    mesh_coordinates[i].copyTo(meshgrid_final); //meshgrid final is the output
+    int nDims = meshgrid_final.dims;
+    int reshape_dim = meshgrid_final.size[nDims-2] * meshgrid_final.size[nDims-1];
+    meshgrid_final.reshape(reshape_dim, 2); //columns then rows //have to recheck this
+    return meshgrid_final;
+    }
+}
+
+//taken from https://answers.opencv.org/question/11788/is-there-a-meshgrid-function-in-opencv/
+static void meshgrid(const cv::Mat &xgv, const cv::Mat &ygv,
+              cv::Mat1i &X, cv::Mat1i &Y)
+{
+  cv::repeat(xgv.reshape(1,1), ygv.total(), 1, X);
+  cv::repeat(ygv.reshape(1,1).t(), 1, xgv.total(), Y);
+}
+
+// helper function (maybe that goes somehow easier)
+static void meshgridTest(const cv::Range &xgv, const cv::Range &ygv,
+                         cv::Mat1i &X, cv::Mat1i &Y)
+{
+  std::vector<int> t_x, t_y;
+  for (int i = xgv.start; i <= xgv.end; i++) t_x.push_back(i);
+  for (int i = ygv.start; i <= ygv.end; i++) t_y.push_back(i);
+  meshgrid(cv::Mat(t_x), cv::Mat(t_y), X, Y);
+}
+
+// Small test-main    
+// int main(int argc, char** argv) {
+//     cv::Mat1i X, Y;
+//     meshgridTest(cv::Range(1,3), cv::Range(10, 14), X, Y); 
+//     std::cerr << X << std::endl;
+//     std::cerr << Y << std::endl;
+//     return 0;
+// }
+
+cv::Mat camera_projection_matrix(cv::Mat &K,cv::Mat &R, cv::Mat &x) { //x is not homogenized
+ cv::Mat X = homogenize(x);
+ cv::Mat x_cam = K * R * X;
+ return x_cam;
+}
+
+cv::Mat spherical_norm(cv::Mat &K, cv::Mat x_cam) {
+    cv::Mat x_norm = K.inv() * x_cam; // x_cam is obtained from camera_projection_matrix
+    double norm_factor = cv::norm(x_norm, NORM_L2);
+    cv::divide(norm_factor, x_norm, x_norm); // divide x_norm by norm_factor and store it in x_norm
+    x_norm = cv::abs(x_norm); // elementwise absolute of x_norm
+    return x_norm;
+}
+// new end
