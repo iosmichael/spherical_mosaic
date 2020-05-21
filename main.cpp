@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
     float fx = 2569.31, fy = 2566.96;
     float cx = 2755.64, cy = 1788.42;
     cv::Mat K = (cv::Mat_<float>(3,3) << fx,0,cx,0,fy,cy,0,0,1);
-    std::cout << K << std::endl;
+    std::cout << "Calibration Matrix: " << K << std::endl;
 
     if (argc != 2)
         return -1;

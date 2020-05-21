@@ -16,7 +16,6 @@ date: 5/13/2020
 
 //new
 #include <numeric>
-#include <Eigen/Dense>
 // end new
 
 using namespace cv;
@@ -171,8 +170,6 @@ cv::Mat homogenize(cv::Mat &x) {
 cv::Mat dehomogenize(cv::Mat &x) {
     cv::Mat dehomo_x;
     cv::Mat temp;
-    cv::divide(x.row(2), x.row(2), temp); //last row by last row. Add //Mat::ones(1, x.rows, CV_64F)) to directly add ones
-    dehomo_x.push_back(temp);
     cv::divide(x.row(2), x.row(1), temp);
     dehomo_x.push_back(temp);
     cv::divide(x.row(2), x.row(0), temp);

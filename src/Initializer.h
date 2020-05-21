@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <algorithm>
+#include <random>
 
 #include <opencv2/opencv.hpp>
 #include <opencv/cv.hpp>
@@ -25,5 +27,8 @@ public:
 private:
     void FeatureExtractor();
     void FeatureMatcher();
+    void RANSAC();
+    float ComputeCost();
+    void MinimumSolverCalibratedRotation(cv::DMatch &match1, cv::DMatch &match2, cv::Mat &solution);
     void initRotation();
 };
