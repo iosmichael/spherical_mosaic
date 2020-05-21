@@ -211,6 +211,7 @@ int main(int argc, char** argv) {
   // for standard bundle adjustment problems.
   ceres::Solver::Options options;
   options.linear_solver_type = ceres::SPARSE_SCHUR;
+  
   options.minimizer_progress_to_stdout = true;\
 
   ceres::Solver::Summary summary;

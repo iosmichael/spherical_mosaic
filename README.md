@@ -21,7 +21,11 @@ Cmake build and install opencv 3.4.2 project and ensure that EXTRA MODULE and EN
 cd opencv
 mkdir build
 cd build
-cmake -DOPENCV_ENABLE_NONFREE:BOOL=ON -DOPENCV_EXTRA_MODULES_PATH=<directory path to opencv_contrib>/modules ..
+
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules -DOPENCV_ENABLE_NONFREE=True -DBUILD_opencv_rgbd=OFF .. 
+
+# cmake -DOPENCV_ENABLE_NONFREE:BOOL=ON -DOPENCV_EXTRA_MODULES_PATH=<directory path to opencv_contrib>/modules ..
+
 make -j8
 make install
 ```
@@ -32,3 +36,9 @@ sudo updatedb
 locate OpenCVConfig.cmake
 ```
 The command will give you the path for OpenCVConfig.cmake (normally under the folder /usr/local/share/OpenCV/), open the file and find the line "SET(OpenCV_VERSION *.*.*)". Make sure the number match with 3.4.2.
+
+```txt
+std::vector<std::map<int, Point>> 
+map is viewNumber, imagePoint 
+One entry for each scene point 
+```

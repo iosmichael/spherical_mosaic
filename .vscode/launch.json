@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build/mosaic",
-            "args": ["${workspaceRoot}/dataset/calit2bldg"],
+            "args": ["${workspaceRoot}/dataset/LunchRoom"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],

@@ -1,18 +1,25 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
+#include <string>
 #include <opencv/cv.hpp>
 
 class Frame {
     public:
-    cv::Mat imLeft, imRight;
-    cv::Mat mK;
+        static cv::Mat K;
 
-    cv::Mat mR21;
-    std::vector<cv::KeyPoint> mLeftKpts, mRightKpts;
-    std::vector<cv::DMatch> mMatches;
-    std::vector<bool> mbInliers;
+        int frameId;
+        bool isFirst, hasKeyPoints, isInitialize;
+        Frame *refFrame;
+        std::vector<cv::KeyPoint> kpts;
+        std::vector<cv::DMatch> matches;
+        std::vector<int> inliers;
+        cv::Mat img, desc, refR, R;
+    
+        Frame(int frameId, bool isFirst, cv::Mat &imgData, Frame *refFrame);
+        ~Frame();
 
-    Frame(cv::Mat &imLeft, cv::Mat &imRight, cv::Mat &mK);
-
+        void visualize();
+        void printStatus();
 };

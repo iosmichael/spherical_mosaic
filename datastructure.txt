@@ -1,0 +1,51 @@
+Frame:
+"""Here we define left image to be the reference image, and right image to be the target image. The frame calculate the rotation of the target image."""
+
+    - K: static cv::Mat
+
+    - frameId: int
+    - isFirst: bool
+    - isInitialize: bool
+    - ref frame : Frame *
+    - features: std::vector<>
+    - matches: std::vector<cv::DMatch> # match with respect to previous frame
+    - inliers: std::vector<cv::DMatch>
+    - relR: cv::Mat # rotation matrix, consider the previous frame is [I|0]
+    - R: cv::Mat
+
+Point:
+    - scenePointId: int
+    - coord: cv::Mat
+    - viewFrames: std::vector<Frame *, cv::Mat>, association between Frame and its feature 2D coord
+    - normalize()
+
+Initializer:
+    - frame <Frame *>
+        - FeatureExtractor() frame -> features
+        - FeatureMatcher() frame -> matches
+        - OutlierRejection() frame -> inliers
+        - MinimalSolver()
+        - ComputeCost()
+        - DLTSolver()
+
+    - scenePoint (Point *)
+        - Initialization() point -> coord
+        - AddFrame()
+        - Update()
+
+Utility:
+    - Normalize()
+    - Homogenize()
+    - Dehomogenize()
+
+Map:
+    - scenePoints: std::vec<Point *>
+    - keyFrames: std::vec<Frame *>
+    - AddScenePoint
+    - AddKeyFrame
+
+
+1. Library and Import: linker works, development environment
+2. Pointer and Reference (input, return)
+3. Data structure: vector, map, tuple, pair, list, deque
+4. Class and Function

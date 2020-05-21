@@ -15,11 +15,11 @@ message("OPENCV_VERSION: " ${OpenCV_VERSION} "     [MAKE SURE IT'S 3.4.2]")
 
 include_directories(${OpenCV_INCLUDE_DIRS} ${CERES_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS} ${glog_INCLUDE_DIR} ${Boost_INCLUDE_DIRS})
 
-# file(GLOB MOSAIC_SOURCE_FILE "src/*.h" "src/*.cpp")
+file(GLOB MOSAIC_SOURCE_FILE "src/*.h" "src/*.cpp")
 
 # set(CERES_SOURCE_FILE bal_test/bal_test.cpp)
 
-add_executable(mosaic main.cpp)
+add_executable(mosaic main.cpp ${MOSAIC_SOURCE_FILE})
 
 # add_executable(mosaic ${CERES_SOURCE_FILE})
 
