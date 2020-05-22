@@ -17,15 +17,16 @@ date: 5/13/2020
 
 using namespace cv;
 
-void printInstruction();
 void readImages(char *dirpath, std::vector<std::string> &image_path);
+
+float fx = 2569.31, fy = 2566.96;
+float cx = 2755.64, cy = 1788.42;
+cv::Mat Frame::K = (cv::Mat_<float>(3,3) << fx,0,cx,0,fy,cy,0,0,1);
+
 
 int main(int argc, char** argv) {
     // import calibration matrix K from dataset lunchroom
-    float fx = 2569.31, fy = 2566.96;
-    float cx = 2755.64, cy = 1788.42;
-    cv::Mat K = (cv::Mat_<float>(3,3) << fx,0,cx,0,fy,cy,0,0,1);
-    std::cout << "Calibration Matrix: " << K << std::endl;
+    std::cout << "Calibration Matrix: " << Frame::K << std::endl;
 
     if (argc != 2)
         return -1;
@@ -60,12 +61,7 @@ int main(int argc, char** argv) {
     for (auto framePtr : frames) {
         delete framePtr;
     }
-
     return 0;
-}
-
-void printInstruction(){
-    // std::cout << "[FLAG] img_directory" << std::endl;
 }
 
 void readImages(char *dirpath, std::vector<std::string> &image_path) {

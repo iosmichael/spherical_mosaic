@@ -45,4 +45,5 @@ void Frame::printStatus() {
     std::cout << "\tisInitialize: " << isInitialize << std::endl;
     std::cout << "\tnumOfKeyPoints: " << kpts.size() << std::endl;
     std::cout << "\tnumOfMatchesToReferenceFrame: " << matches.size() << std::endl;
-}  
+    std::cout << "\timageSize: (w: " << img.cols << ", h:" << img.rows << ")" << std::endl;
+}

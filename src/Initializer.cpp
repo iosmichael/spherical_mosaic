@@ -1,4 +1,7 @@
 #include "Initializer.h"
+#include "Utility.h"
+
+cv::Ptr<cv::xfeatures2d::SIFT> Initializer::detector = cv::xfeatures2d::SIFT::create();
 
 Initializer::Initializer(Frame *frame): frame(frame) { }
 
@@ -56,9 +59,8 @@ void Initializer::FeatureMatcher() {
     while (frame->matches.size() > kMaxMatchingSize) {
         frame->matches.pop_back();
     }
-    // perform initial feature descriptor matching
-
     // perform outlier rejection on the feature matching
+    RANSAC();
 
     frame->isInitialize = true;
 }
@@ -67,18 +69,21 @@ void Initializer::RANSAC() {
      float cMinimalCost = 1e10;
      int maxTrials = 100;
      float threshold, tolerance, cost;
+     int minMatches = 2;
      cv::Mat optSol;
      std::vector<cv::DMatch> inliers;
-     for (int trials = 0; trials < maxTrials & cMinimalCost > threshold; trials++) {
+     for (size_t trials = 0; trials < maxTrials & cMinimalCost > threshold; trials++) {
         // select a random sample from the matches
-        int random = std::rand() % frame->matches.size(); 
-        cv::DMatch match1 = frame->matches[random];
-        random = std::rand() % frame->matches.size(); 
-        cv::DMatch match2 = frame->matches[random];
+        std::vector<cv::DMatch> selected_matches;
+        for (size_t i = 0; i < minMatches; i++) {
+            int random = std::rand() % frame->matches.size(); 
+            selected_matches.push_back(frame->matches[random]);
+        }
+        
         cv::Mat minimumSol;
         
-        MinimumSolverCalibratedRotation(match1, match2, minimumSol);
-        cost = ComputeCost();
+        MinimumSolverCalibratedRotation(selected_matches, minimumSol);
+        cost = ComputeCost(minimumSol);
         // use the matching feature coordinates to calculate model estimation: rotation
         // use the rotation to calculate all the matches in term of reprojection error
         if (cost < cMinimalCost) {
@@ -91,7 +96,7 @@ void Initializer::RANSAC() {
      // calculate the inliers using the optimal model
 }
 
-float Initializer::ComputeCost() {
+float Initializer::ComputeCost(cv::Mat &R) {
     /*
     Perform reprojection error, we want to estimate the homography based on our rotation matrix and calibration matrix
     Since we assume that there is no camera translation between frames, we get:
@@ -99,9 +104,19 @@ float Initializer::ComputeCost() {
     x' = K * R * K^-1 x
     cost = ||x' - x||_2^2, where x and x' is all the feature matches between reference frame and current frame
     */
+    std::vector<cv::Point2f> refPts, currPts;
+    for (auto m : frame->matches) {
+       refPts.push_back(frame->refFrame->kpts[m.queryIdx].pt);
+       currPts.push_back(frame->kpts[m.trainIdx].pt);
+    }
+    cv::Mat matRefPts(refPts), matCurrPts(currPts);
+    std::cout << matRefPts << std::endl;
+    // Utility::Homogenize(matCurrPts.t());
+    return 0;
+
 }
 
-void Initializer::MinimumSolverCalibratedRotation(cv::DMatch &match1, cv::DMatch &match2, cv::Mat &solution) {
+void Initializer::MinimumSolverCalibratedRotation(std::vector<cv::DMatch> matches, cv::Mat &solution) {
     /*
     B = [x1^T, x2^T, ..., xn^T], where n = 2, B: 2x3 matrix, points in B come from ref frame
     C = [x1, x2, ..., xn], where n = 2, C: 3x2 matrix, points in C come from current frame
@@ -112,6 +127,22 @@ void Initializer::MinimumSolverCalibratedRotation(cv::DMatch &match1, cv::DMatch
     4) if det(U) * det(V) > 0: R = U * V.T
     5) assert that det(R) == 1
     */
+    cv::Mat B, C;
+    for (auto m : matches) {
+        // need to double check whether the query and train associate with the reference frame and current frame
+        cv::KeyPoint kptRef = frame->refFrame->kpts[m.queryIdx], kptCurr = frame->kpts[m.trainIdx];
+        cv::Point2f x = kptRef.pt, xp = kptCurr.pt;
+        B.push_back(x); // n x 2
+        C.push_back(xp); // n x 2
+    }
+    cv::convertPointsToHomogeneous(B, B);
+    cv::convertPointsToHomogeneous(C, C);
+    cv::Mat Bt{B.t()}, Ct{C.t()};
+    std::cout << "t: " << Ct << std::endl;
+    cv::Mat normB = frame->K.inv() * Bt;
+    cv::Mat normC = frame->K.inv() * Ct;
+    std::cout << normC << std::endl;
+
 }
 
 void Initializer::initRotation() {

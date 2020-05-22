@@ -7,7 +7,7 @@ namespace Utility
 {
     inline cv::Mat Homogenize(cv::Mat &x) {
         int col_size = x.cols;
-        cv::Mat to_append = cv::Mat::ones(1, col_size, CV_64F);  // ncols cols, 1 row
+        cv::Mat to_append = cv::Mat::ones(1, col_size, x.TYPE_MASK);  // ncols cols, 1 row
         x.push_back(to_append);
         return x;
     }

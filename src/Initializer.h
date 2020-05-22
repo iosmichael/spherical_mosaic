@@ -13,7 +13,7 @@
 class Initializer {
 public:
     // static variables
-    cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create();
+    static cv::Ptr<cv::xfeatures2d::SIFT> detector;
     const double kDistanceCoef = 4.0;
     const int kMaxMatchingSize = 50;
     // end static variables
@@ -28,7 +28,7 @@ private:
     void FeatureExtractor();
     void FeatureMatcher();
     void RANSAC();
-    float ComputeCost();
-    void MinimumSolverCalibratedRotation(cv::DMatch &match1, cv::DMatch &match2, cv::Mat &solution);
+    float ComputeCost(cv::Mat &R);
+    void MinimumSolverCalibratedRotation(std::vector<cv::DMatch> matches, cv::Mat &solution);
     void initRotation();
 };
