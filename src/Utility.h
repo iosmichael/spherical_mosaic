@@ -27,7 +27,11 @@ namespace Utility
         double norm_factor = cv::norm(x_norm, cv::NORM_L2);
         cv::divide(norm_factor, x_norm, x_norm); // divide x_norm by norm_factor and store it in x_norm
         // x = [-1, -2, -3] => [1,2,3], x = [-1,2,-1] => [1,-2,1]
-        // x_norm = x_norm * ; // elementwise absolute of x_norm
+        bool is_all_positive = (std::find_if(x_norm.begin<float>(), x_norm.end<float>(), [](auto x) { return (x < 0); }) == x_norm.end<float>());
+        std::cout << is_all_positive << std::endl;
+        if (!is_all_positive) {
+            x_norm = -1*x_norm; //invert sign if all not positive
+        }
         return x_norm;
     }
 
