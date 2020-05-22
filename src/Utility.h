@@ -7,16 +7,16 @@ namespace Utility
 {
     inline cv::Mat Homogenize(cv::Mat &x) {
         int col_size = x.cols;
-        cv::Mat to_append = cv::Mat::ones(1, col_size, CV_64F);  // ncols cols, 1 row
+        cv::Mat to_append = cv::Mat::ones(1, col_size, CV_32F);  // ncols cols, 1 row
         x.push_back(to_append);
         return x;
     }
 
     inline cv::Mat Dehomogenize(cv::Mat &x) {
         cv::Mat dehomoX, temp;
-        cv::divide(x.row(2), x.row(1), temp);
+        cv::divide(x.row(0), x.row(2), temp);
         dehomoX.push_back(temp);
-        cv::divide(x.row(2), x.row(0), temp);
+        cv::divide(x.row(1), x.row(2), temp);
         dehomoX.push_back(temp);
         // dehomoX is the desired output
         return dehomoX;
