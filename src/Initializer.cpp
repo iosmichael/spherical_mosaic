@@ -91,7 +91,7 @@ void Initializer::RANSAC() {
      // calculate the inliers using the optimal model
 }
 
-float Initializer::ComputeCost() {
+float Initializer::ComputeCost(cv::Mat &K,cv::Mat &R, cv::Mat &x) {
     /*
     Perform reprojection error, we want to estimate the homography based on our rotation matrix and calibration matrix
     Since we assume that there is no camera translation between frames, we get:
@@ -99,6 +99,9 @@ float Initializer::ComputeCost() {
     x' = K * R * K^-1 x
     cost = ||x' - x||_2^2, where x and x' is all the feature matches between reference frame and current frame
     */
+   cv::Mat x_prime = K * R * K.inv() * x; // x is homogenous
+   float cost = cv::norm(x_prime,x,cv::NORM_L2);
+   return cost;
 }
 
 void Initializer::MinimumSolverCalibratedRotation(cv::DMatch &match1, cv::DMatch &match2, cv::Mat &solution) {
@@ -121,6 +124,14 @@ void Initializer::initRotation() {
 
     1) S = C.T * B, S: 3x3 matrix
     2) perform singular value decomposition on S matrix, where S = U Sigma V.T
+
+    // create SVD 
+        cv::SVD s;
+        // svd result
+        Mat w,u,vt;
+        // computations ...
+        s.compute(S,w,u,vt);
+    // determinant is cv::determinant(matrix)
     3) if det(U) * det(V) < 0: R = U * diag(1, 1, -1) * V.T
     4) if det(U) * det(V) > 0: R = U * V.T
     5) assert that det(R) == 1
