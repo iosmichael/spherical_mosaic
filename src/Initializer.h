@@ -1,3 +1,16 @@
+/*
+Initializer Class
+- SIFT Detection/Descriptor Algorithm
+- KNN BFMatcher Matching Algorithm
+- RANSAC + Minimum Solver (Calibrated Rotation Matrix)
+- Outlier Rejection
+- ScenePoint Initialization
+
+author: Michael, Suhrid
+date: 5/23/2020
+*/
+
+
 #pragma once
 #include <iostream>
 #include <algorithm>

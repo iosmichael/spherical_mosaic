@@ -71,7 +71,6 @@ void Initializer::RANSAC() {
      float threshold, tolerance, cost;
      int minMatches = 2;
      cv::Mat optSol;
-     std::vector<int> inliers;
      for (size_t trials = 0; trials < maxTrials & cMinimalCost > threshold; trials++) {
         // select a random sample from the matches
         std::vector<cv::DMatch> selected_matches;
@@ -84,7 +83,7 @@ void Initializer::RANSAC() {
         
         SolveCalibratedRotation(selected_matches, minimumSol);
 
-        cost = ComputeCost(minimumSol, tolerance);
+        cost = ComputeCost(minimumSol, tolerance, frame->inliers);
         std::cout << cost << std::endl;
         // use the matching feature coordinates to calculate model estimation: rotation
         // use the rotation to calculate all the matches in term of reprojection error
@@ -93,7 +92,7 @@ void Initializer::RANSAC() {
             minimumSol.copyTo(optSol);
         }
         // save the optimal solution
-        
+
         // adaptive values
 
      }
@@ -126,6 +125,7 @@ float Initializer::ComputeCost(cv::Mat &R, float tolerance, std::vector<int> &in
     for (size_t i = 0; i < xp.cols; i++) {
         double norm = cv::norm(xp.col(i) - refPts.col(i), cv::NORM_L2);
         cost += (norm > tolerance) ? tolerance : norm;
+        inliers.push_back(i);
     }
     return cost;
 }
