@@ -67,11 +67,11 @@ void Initializer::FeatureMatcher() {
 
 void Initializer::RANSAC() {
      float cMinimalCost = 1e10;
-     int maxTrials = 100;
+     int maxTrials = 10;
      float threshold, tolerance, cost;
      int minMatches = 2;
      cv::Mat optSol;
-     std::vector<cv::DMatch> inliers;
+     std::vector<int> inliers;
      for (size_t trials = 0; trials < maxTrials & cMinimalCost > threshold; trials++) {
         // select a random sample from the matches
         std::vector<cv::DMatch> selected_matches;
@@ -82,8 +82,10 @@ void Initializer::RANSAC() {
         
         cv::Mat minimumSol;
         
-        MinimumSolverCalibratedRotation(selected_matches, minimumSol);
-        cost = ComputeCost(minimumSol);
+        SolveCalibratedRotation(selected_matches, minimumSol);
+
+        cost = ComputeCost(minimumSol, tolerance);
+        std::cout << cost << std::endl;
         // use the matching feature coordinates to calculate model estimation: rotation
         // use the rotation to calculate all the matches in term of reprojection error
         if (cost < cMinimalCost) {
@@ -91,12 +93,15 @@ void Initializer::RANSAC() {
             minimumSol.copyTo(optSol);
         }
         // save the optimal solution
+        
+        // adaptive values
+
      }
      // calculate the final error of optimal model
      // calculate the inliers using the optimal model
 }
 
-float Initializer::ComputeCost(cv::Mat &R) {
+float Initializer::ComputeCost(cv::Mat &R, float tolerance, std::vector<int> &inliers) {
     /*
     Perform reprojection error, we want to estimate the homography based on our rotation matrix and calibration matrix
     Since we assume that there is no camera translation between frames, we get:
@@ -104,19 +109,28 @@ float Initializer::ComputeCost(cv::Mat &R) {
     x' = K * R * K^-1 x
     cost = ||x' - x||_2^2, where x and x' is all the feature matches between reference frame and current frame
     */
-    std::vector<cv::Point2f> refPts, currPts;
-    for (auto m : frame->matches) {
-       refPts.push_back(frame->refFrame->kpts[m.queryIdx].pt);
-       currPts.push_back(frame->kpts[m.trainIdx].pt);
-    }
-    cv::Mat matRefPts(refPts), matCurrPts(currPts);
-    std::cout << matRefPts << std::endl;
-    // Utility::Homogenize(matCurrPts.t());
-    return 0;
 
+    cv::Mat refPts, currPts;
+    for (auto m : frame->matches) {
+        cv::Point2f refPt = frame->refFrame->kpts[m.queryIdx].pt, curPt = frame->kpts[m.trainIdx].pt;
+        cv::Mat x = (cv::Mat_<float>(1,3) << refPt.x, refPt.y, 1), xp = (cv::Mat_<float>(1,3) << curPt.x, curPt.y, 1);
+        refPts.push_back(x);
+        currPts.push_back(xp);
+    }
+
+    cv::Mat xp = frame->K * R * Utility::Normalize(currPts.t(), frame->K); // x is homogenous
+    xp = Utility::Dehomogenize(xp); refPts = Utility::Dehomogenize(refPts.t()); 
+    
+    float cost = 0;
+    inliers.clear();
+    for (size_t i = 0; i < xp.cols; i++) {
+        double norm = cv::norm(xp.col(i) - refPts.col(i), cv::NORM_L2);
+        cost += (norm > tolerance) ? tolerance : norm;
+    }
+    return cost;
 }
 
-void Initializer::MinimumSolverCalibratedRotation(std::vector<cv::DMatch> matches, cv::Mat &solution) {
+void Initializer::SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::Mat &solution) {
     /*
     B = [x1^T, x2^T, ..., xn^T], where n = 2, B: 2x3 matrix, points in B come from ref frame
     C = [x1, x2, ..., xn], where n = 2, C: 3x2 matrix, points in C come from current frame
@@ -131,29 +145,26 @@ void Initializer::MinimumSolverCalibratedRotation(std::vector<cv::DMatch> matche
     for (auto m : matches) {
         // need to double check whether the query and train associate with the reference frame and current frame
         cv::KeyPoint kptRef = frame->refFrame->kpts[m.queryIdx], kptCurr = frame->kpts[m.trainIdx];
-        cv::Point2f x = kptRef.pt, xp = kptCurr.pt;
-        B.push_back(x); // n x 2
-        C.push_back(xp); // n x 2
+        cv::Mat x = (cv::Mat_<float>(1,3) << kptRef.pt.x, kptRef.pt.y, 1);
+        cv::Mat xp = (cv::Mat_<float>(1,3) << kptCurr.pt.x, kptCurr.pt.y, 1);
+        B.push_back(x); // n x 3
+        C.push_back(xp); // n x 3
     }
-    cv::convertPointsToHomogeneous(B, B);
-    cv::convertPointsToHomogeneous(C, C);
-    cv::Mat Bt{B.t()}, Ct{C.t()};
-    std::cout << "t: " << Ct << std::endl;
-    cv::Mat normB = frame->K.inv() * Bt;
-    cv::Mat normC = frame->K.inv() * Ct;
-    std::cout << normC << std::endl;
-
-}
-
-void Initializer::initRotation() {
-    /*
-    B = [x1^T, x2^T, ..., xn^T], where n = numOfMatches, B: nx3 matrix, points in B come from ref frame
-    C = [x1, x2, ..., xn], where n = numOfMatches, C: 3xn matrix, points in C come from current frame
-
-    1) S = C.T * B, S: 3x3 matrix
-    2) perform singular value decomposition on S matrix, where S = U Sigma V.T
-    3) if det(U) * det(V) < 0: R = U * diag(1, 1, -1) * V.T
-    4) if det(U) * det(V) > 0: R = U * V.T
-    5) assert that det(R) == 1
-    */
+    B = B.t(); C = C.t(); // 3 x n
+    std::cout << B << std::endl;
+    B = Utility::Normalize(B, frame->K); C = Utility::Normalize(C, frame->K);
+    cv::Mat S = C * B.t();
+    std::cout << S << std::endl;
+    
+    cv::SVD s;
+    cv::Mat u, sigma, vt;
+    s.compute(S, sigma, u, vt);
+    if ((cv::determinant(u) * cv::determinant(vt)) < 0){
+        cv::Mat diag = cv::Mat::eye(3, 3, CV_32F);
+        diag.at<float>(2,2) = -1;
+        solution = u * diag * vt;
+    } else {
+        solution = u * vt;
+    } 
+    std::cout << "R determinant: " << cv::determinant(solution) << std::endl;
 }

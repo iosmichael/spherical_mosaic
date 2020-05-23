@@ -2,7 +2,8 @@
 
 Frame::Frame(int frameId, bool isFirst, cv::Mat &imgData, Frame *refFrame):frameId(frameId), isFirst(isFirst), hasKeyPoints(false), isInitialize(false), refFrame(refFrame) {
     if (isFirst){
-        R = (cv::Mat_<float>(3,3) << 1,0,0,0,1,0,0,0,1);
+        R = cv::Mat::eye(3,3,CV_32F);
+        refR = cv::Mat::eye(3,3,CV_32F);
     }
     imgData.copyTo(img);
 }

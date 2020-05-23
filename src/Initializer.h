@@ -28,7 +28,7 @@ private:
     void FeatureExtractor();
     void FeatureMatcher();
     void RANSAC();
-    float ComputeCost(cv::Mat &R);
-    void MinimumSolverCalibratedRotation(std::vector<cv::DMatch> matches, cv::Mat &solution);
-    void initRotation();
+    float ComputeCost(cv::Mat &R, float tolerance, std::vector<int> &inliers);
+    void ComputeInliers(cv::Mat &R);
+    void SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::Mat &solution);
 };

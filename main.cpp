@@ -9,8 +9,11 @@ date: 5/13/2020
 #include <string>
 #include <boost/filesystem.hpp>
 #include <vector>
+#include <opencv2/opencv.hpp>
 #include <opencv/cv.hpp>
 #include <opencv2/core.hpp>
+#include <opencv2/xfeatures2d/nonfree.hpp>
+#include <opencv2/highgui.hpp>
 
 #include "src/Frame.h"
 #include "src/Initializer.h"
@@ -18,6 +21,8 @@ date: 5/13/2020
 using namespace cv;
 
 void readImages(char *dirpath, std::vector<std::string> &image_path);
+
+void test();
 
 float fx = 2569.31, fy = 2566.96;
 float cx = 2755.64, cy = 1788.42;
@@ -27,6 +32,7 @@ cv::Mat Frame::K = (cv::Mat_<float>(3,3) << fx,0,cx,0,fy,cy,0,0,1);
 int main(int argc, char** argv) {
     // import calibration matrix K from dataset lunchroom
     std::cout << "Calibration Matrix: " << Frame::K << std::endl;
+    // test();
 
     if (argc != 2)
         return -1;
@@ -62,6 +68,24 @@ int main(int argc, char** argv) {
         delete framePtr;
     }
     return 0;
+}
+
+void test() {
+    cv::Mat B;
+    cv::Point2f x = cv::Point2f{2,3}, xp = cv::Point2f{3,4};
+    cv::Mat pt = (cv::Mat_<float>(1,3) << x.x, x.y, 1);
+    std::cout << pt << std::endl;
+    B.push_back(pt);
+    B.push_back(pt);
+    std::cout << B << std::endl;
+    B = B.t();
+    std::cout << B << std::endl;
+    for (size_t i = 0; i < B.cols; i++) {
+        B.at<float>(0, i) = B.at<float>(0, i) / B.at<float>(2, i);
+        B.at<float>(1, i) = B.at<float>(1, i) / B.at<float>(2, i);
+    }
+    B = B.rowRange(cv::Range(0,2));
+    std::cout << B << std::endl;
 }
 
 void readImages(char *dirpath, std::vector<std::string> &image_path) {

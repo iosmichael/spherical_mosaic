@@ -5,30 +5,37 @@
 
 namespace Utility
 {
-    inline cv::Mat Homogenize(cv::Mat &x) {
-        int col_size = x.cols;
-        cv::Mat to_append = cv::Mat::ones(1, col_size, x.TYPE_MASK);  // ncols cols, 1 row
-        x.push_back(to_append);
-        return x;
+    inline cv::Mat Homogenize(cv::Mat X) {
+        // X should have the size of 2 x N
+        X.push_back(cv::Mat::ones(1, X.cols, CV_32F));
+        assert(X.rows == 3);
+        return X;
     }
 
-    inline cv::Mat Dehomogenize(cv::Mat &x) {
-        cv::Mat dehomoX, temp;
-        cv::divide(x.row(2), x.row(1), temp);
-        dehomoX.push_back(temp);
-        cv::divide(x.row(2), x.row(0), temp);
-        dehomoX.push_back(temp);
-        // dehomoX is the desired output
-        return dehomoX;
+    inline cv::Mat Dehomogenize(cv::Mat X) {
+        // X should have the size of 3 x N
+        for (size_t i = 0; i < X.cols; i++) {
+            X.at<float>(0, i) = X.at<float>(0, i) / X.at<float>(2, i);
+            X.at<float>(1, i) = X.at<float>(1, i) / X.at<float>(2, i);
+        }
+        // return size should be of 2 x N
+        return X.rowRange(cv::Range(0,2));
     }
     
-    inline cv::Mat Normalize(cv::Mat &homoX, cv::Mat &K) {
-        cv::Mat x_norm = K.inv() * homoX; // x_cam is obtained from camera_projection_matrix
-        double norm_factor = cv::norm(x_norm, cv::NORM_L2);
-        cv::divide(norm_factor, x_norm, x_norm); // divide x_norm by norm_factor and store it in x_norm
-        // x = [-1, -2, -3] => [1,2,3], x = [-1,2,-1] => [1,-2,1]
-        // x_norm = x_norm * ; // elementwise absolute of x_norm
-        return x_norm;
+    inline cv::Mat Normalize(cv::Mat X, cv::Mat K) {
+        // X is the homogeneous vector of size 3 x N
+        cv::Mat normalized = K.inv() * X;
+        for (size_t i = 0; i < normalized.cols; i++) {
+            // calculate the norm of vector column
+            double norm = cv::norm(normalized.col(i), cv::NORM_L2);
+            // calculate the sign of the third coord: sign(z)
+            int sign = (normalized.at<float>(2, i) < 0) ? -1 : 1;
+            norm = norm * sign;
+            normalized.at<float>(0, i) /= norm;
+            normalized.at<float>(1, i) /= norm;
+            normalized.at<float>(2, i) /= norm;
+        }
+        return normalized;
     }
 
 } // namespace Utility
