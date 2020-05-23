@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <tuple>
 #include <string>
 #include <opencv/cv.hpp>
 
@@ -17,7 +18,7 @@ class Frame {
         Frame *refFrame;
         std::vector<cv::KeyPoint> kpts;
         std::vector<cv::DMatch> matches;
-        std::vector<int> inliers;
+        std::vector<std::tuple<int, int>> inliers;
 
         // everytime we create a vector of inliers, we will check the ref->scenePts[int index]. 
         // If no scene point exists associated with the kpt index, we will create a new Point in the initializer

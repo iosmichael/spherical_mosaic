@@ -1,5 +1,4 @@
 # Spherical Mosaic - Computational Photography Final Project
----
 Libraries we used in this project:
 - **OpenCV** (3.4.2) for feature detection/matching
 - **Eigen3** for ceres compatibility
@@ -8,7 +7,6 @@ Libraries we used in this project:
 
 
 ## OPENCV VERSION 3.4.2 (w. SIFT/SURF Support)
----
 Download the opencv git repo and switch to the version 3.4.2 (for SIFT/SURF feature detection support)
 
 ```bash

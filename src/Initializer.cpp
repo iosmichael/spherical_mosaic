@@ -7,11 +7,17 @@ Initializer::Initializer(Frame *frame): frame(frame) { }
 
 Initializer::~Initializer() { }
 
-void Initializer::initialize() {
+void Initializer::initialize(std::vector<Point *> &scenePoints) {
     if (!frame->isFirst)
     {            
         FeatureExtractor();
         FeatureMatcher();
+        SolveCalibratedRotationDLT();
+        // frame has refR initialized with a set of inliers
+        frame->isInitialize = true;
+        // if frame inliers are related to unseen scene points, initialize the scenepoints
+        // if frame inliers are related to seen scene points, update the scenepoints with new observation
+        InitializeScenePoints(scenePoints);
     }
 }
 
@@ -61,8 +67,6 @@ void Initializer::FeatureMatcher() {
     }
     // perform outlier rejection on the feature matching
     RANSAC();
-
-    frame->isInitialize = true;
 }
 
 void Initializer::RANSAC() {
@@ -71,6 +75,7 @@ void Initializer::RANSAC() {
      float threshold, tolerance, cost;
      int minMatches = 2;
      cv::Mat optSol;
+     std::vector<std::tuple<int, int>> tempInliers;
      for (size_t trials = 0; trials < maxTrials & cMinimalCost > threshold; trials++) {
         // select a random sample from the matches
         std::vector<cv::DMatch> selected_matches;
@@ -83,7 +88,8 @@ void Initializer::RANSAC() {
         
         SolveCalibratedRotation(selected_matches, minimumSol);
 
-        cost = ComputeCost(minimumSol, tolerance, frame->inliers);
+        cost = ComputeCost(minimumSol, tolerance, tempInliers);
+
         std::cout << cost << std::endl;
         // use the matching feature coordinates to calculate model estimation: rotation
         // use the rotation to calculate all the matches in term of reprojection error
@@ -91,16 +97,16 @@ void Initializer::RANSAC() {
             cMinimalCost = cost;
             minimumSol.copyTo(optSol);
         }
-        // save the optimal solution
-
         // adaptive values
 
      }
      // calculate the final error of optimal model
      // calculate the inliers using the optimal model
+     cost = ComputeCost(optSol, tolerance, frame->inliers);
+     std::cout << "final cost for RANSAC rotation: " << cost << std::endl;
 }
 
-float Initializer::ComputeCost(cv::Mat &R, float tolerance, std::vector<int> &inliers) {
+float Initializer::ComputeCost(cv::Mat &R, float tolerance, std::vector<std::tuple<int, int>> &inliers) {
     /*
     Perform reprojection error, we want to estimate the homography based on our rotation matrix and calibration matrix
     Since we assume that there is no camera translation between frames, we get:
@@ -111,7 +117,7 @@ float Initializer::ComputeCost(cv::Mat &R, float tolerance, std::vector<int> &in
 
     cv::Mat refPts, currPts;
     for (auto m : frame->matches) {
-        cv::Point2f refPt = frame->refFrame->kpts[m.queryIdx].pt, curPt = frame->kpts[m.trainIdx].pt;
+        cv::Point2f refPt = frame->refFrame->kpts[m.trainIdx].pt, curPt = frame->kpts[m.queryIdx].pt;
         cv::Mat x = (cv::Mat_<float>(1,3) << refPt.x, refPt.y, 1), xp = (cv::Mat_<float>(1,3) << curPt.x, curPt.y, 1);
         refPts.push_back(x);
         currPts.push_back(xp);
@@ -125,7 +131,7 @@ float Initializer::ComputeCost(cv::Mat &R, float tolerance, std::vector<int> &in
     for (size_t i = 0; i < xp.cols; i++) {
         double norm = cv::norm(xp.col(i) - refPts.col(i), cv::NORM_L2);
         cost += (norm > tolerance) ? tolerance : norm;
-        inliers.push_back(i);
+        inliers.push_back(std::tuple<int, int>(frame->matches[i].trainIdx, frame->matches[i].queryIdx));
     }
     return cost;
 }
@@ -144,7 +150,7 @@ void Initializer::SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::M
     cv::Mat B, C;
     for (auto m : matches) {
         // need to double check whether the query and train associate with the reference frame and current frame
-        cv::KeyPoint kptRef = frame->refFrame->kpts[m.queryIdx], kptCurr = frame->kpts[m.trainIdx];
+        cv::KeyPoint kptRef = frame->refFrame->kpts[m.trainIdx], kptCurr = frame->kpts[m.queryIdx];
         cv::Mat x = (cv::Mat_<float>(1,3) << kptRef.pt.x, kptRef.pt.y, 1);
         cv::Mat xp = (cv::Mat_<float>(1,3) << kptCurr.pt.x, kptCurr.pt.y, 1);
         B.push_back(x); // n x 3
@@ -167,4 +173,54 @@ void Initializer::SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::M
         solution = u * vt;
     } 
     std::cout << "R determinant: " << cv::determinant(solution) << std::endl;
+}
+
+void Initializer::SolveCalibratedRotationDLT() {
+    // B is the homogeneous coordinate of points in the reference frame
+    // C is the homogeneous coordinate of points in the current frame
+    cv::Mat B, C;
+    for (auto t: frame->inliers) {
+        cv::Mat x = (cv::Mat_<float>(1,3) << frame->refFrame->kpts[std::get<0>(t)].pt.x, frame->refFrame->kpts[std::get<0>(t)].pt.y, 1);
+        cv::Mat xp = (cv::Mat_<float>(1,3) << frame->kpts[std::get<1>(t)].pt.x, frame->kpts[std::get<1>(t)].pt.y, 1);
+        B.push_back(x); // n x 3
+        C.push_back(xp); // n x 3
+    }
+    
+    B = B.t(); C = C.t(); // 3 x n
+    std::cout << B << std::endl;
+    B = Utility::Normalize(B, frame->K); C = Utility::Normalize(C, frame->K);
+    cv::Mat S = C * B.t();
+    std::cout << S << std::endl;
+    
+    cv::SVD s;
+    cv::Mat u, sigma, vt;
+    s.compute(S, sigma, u, vt);
+    if ((cv::determinant(u) * cv::determinant(vt)) < 0){
+        cv::Mat diag = cv::Mat::eye(3, 3, CV_32F);
+        diag.at<float>(2,2) = -1;
+        frame->refR = u * diag * vt;
+    } else {
+        frame->refR = u * vt;
+    } 
+    std::cout << "R determinant: " << cv::determinant(frame->refR) << std::endl;
+}
+
+void Initializer::InitializeScenePoints(std::vector<Point *> &scenePoints) {
+    // <int, point pointer> : int is our kpt index
+    // <int, int> : t, where the first element is reference kpts index, the second element is current kpts index
+    for (auto t: frame->inliers) {
+        if (frame->refFrame->scenePts.count(std::get<0>(t))) {
+            // reference frame has already initialized the scenePts
+            Point *sP = frame->refFrame->scenePts[std::get<0>(t)];
+            frame->scenePts[std::get<1>(t)] = sP;
+            sP->AddObservation(frame, (int) std::get<1>(t));
+        } else {
+            Point *sP = new Point(frame->frameId + scenePoints.size() + 1e3);
+            frame->scenePts[std::get<1>(t)] = sP;
+            frame->refFrame->scenePts[std::get<0>(t)] = sP;
+            sP->AddObservation(frame->refFrame, (int) std::get<0>(t));
+            sP->AddObservation(frame, (int) std::get<1>(t));
+            scenePoints.push_back(sP);
+        }
+    }
 }

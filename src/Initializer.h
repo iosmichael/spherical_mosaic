@@ -15,6 +15,7 @@ date: 5/23/2020
 #include <iostream>
 #include <algorithm>
 #include <random>
+#include <tuple>
 
 #include <opencv2/opencv.hpp>
 #include <opencv/cv.hpp>
@@ -22,6 +23,7 @@ date: 5/23/2020
 #include <opencv2/xfeatures2d/nonfree.hpp>
 #include <opencv2/highgui.hpp>
 #include "Frame.h"
+#include "Point.h"
 
 class Initializer {
 public:
@@ -35,13 +37,15 @@ public:
 
     Initializer(Frame *frame);
     ~Initializer();
-    void initialize();
+    void initialize(std::vector<Point *> &scenePoints);
 
 private:
     void FeatureExtractor();
     void FeatureMatcher();
     void RANSAC();
-    float ComputeCost(cv::Mat &R, float tolerance, std::vector<int> &inliers);
+    float ComputeCost(cv::Mat &R, float tolerance, std::vector<std::tuple<int, int>> &inliers);
     void ComputeInliers(cv::Mat &R);
     void SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::Mat &solution);
+    void SolveCalibratedRotationDLT();
+    void InitializeScenePoints(std::vector<Point *> &scenePoints);
 };

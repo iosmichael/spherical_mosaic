@@ -20,8 +20,7 @@ public:
     Graph();
     ~Graph();
 
-    void AddFrame(Frame *frame);
-    void AddPoint(Point *point);
+    void AddFrame(cv::Mat img);
     
 private:
     void Optimize();

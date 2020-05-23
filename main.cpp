@@ -16,6 +16,7 @@ date: 5/13/2020
 #include <opencv2/highgui.hpp>
 
 #include "src/Frame.h"
+#include "src/Graph.h"
 #include "src/Initializer.h"
 
 using namespace cv;
@@ -23,6 +24,7 @@ using namespace cv;
 void readImages(char *dirpath, std::vector<std::string> &image_path);
 
 void test();
+void testGraph();
 
 float fx = 2569.31, fy = 2566.96;
 float cx = 2755.64, cy = 1788.42;
@@ -41,6 +43,8 @@ int main(int argc, char** argv) {
     
     readImages(argv[1], img_path);
     std::sort(img_path.begin(), img_path.end());
+    testGraph();
+    /*
     std::vector<Frame *> frames;    
     
     int countId = 0;
@@ -62,11 +66,14 @@ int main(int argc, char** argv) {
 
     // run algorithm here
 
+    // Graph Creation
+
     std::cout << "total frame loaded in the memory: " << frames.size() << std::endl;
     // release the memory
     for (auto framePtr : frames) {
         delete framePtr;
     }
+    */
     return 0;
 }
 
@@ -86,6 +93,17 @@ void test() {
     }
     B = B.rowRange(cv::Range(0,2));
     std::cout << B << std::endl;
+}
+
+void testGraph(std::vector<std::string> &img_path) {
+    // Graph graph = Graph();
+    
+    // int countId = 0;
+    // Frame *prevFrame = nullptr;
+    // for (auto path : img_path) {
+    //     cv::Mat img = cv::imread(path, cv::IMREAD_COLOR);
+    //     graph.AddFrame(img);
+    // }
 }
 
 void readImages(char *dirpath, std::vector<std::string> &image_path) {
