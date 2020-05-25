@@ -15,10 +15,42 @@ void Initializer::initialize(std::map<int, Point *> &scenePoints) {
         SolveCalibratedRotationDLT();
         // frame has refR initialized with a set of inliers
         frame->isInitialize = true;
+        frame->visualize();
+        visualize();
+
         // if frame inliers are related to unseen scene points, initialize the scenepoints
         // if frame inliers are related to seen scene points, update the scenepoints with new observation
         InitializeScenePoints(scenePoints);
     }
+}
+
+void Initializer::visualize() {
+    // we have frame->refR, the estimated rotation from current frame to reference frame
+    cv::Mat display = frame->refFrame->img.clone();
+    std::cout << "number of inliers found: " << frame->inliers.size() << std::endl;
+    for( int i = 0; i < (int)frame->inliers.size(); i++ )
+    {
+        int refIndex = std::get<0>(frame->inliers[i]), currIndex = std::get<1>(frame->inliers[i]);
+        // printf( "-- Good Match [%d] Keypoint 1: %d  -- Keypoint 2: %d  \n", i, refIndex,  currIndex); 
+
+        //query image is the first frame
+        cv::Point2f point_old = frame->refFrame->kpts[refIndex].pt;
+        //train  image is the next frame that we want to find matched keypoints
+        cv::Mat point_curr = (cv::Mat_<float>(3,1,CV_32F) << frame->kpts[currIndex].pt.x, frame->kpts[currIndex].pt.y, 1);
+        point_curr = Utility::Dehomogenize(frame->K * frame->refR * Utility::Normalize(point_curr, frame->K));
+        cv::Point2f point_new = cv::Point2f(point_curr);
+
+        //keypoint color for frame 1: RED
+        cv::circle(display, point_old, 3, cv::Scalar(0, 0, 255), 1);  
+        
+        //keypoint color for frame 2: BLUE
+        cv::circle(display, point_new, 3, cv::Scalar(255, 0, 0), 1);  
+
+        //draw a line between keypoints
+        cv::line(display, point_old, point_new, cv::Scalar(0, 255, 0), 2, 8, 0);
+    }
+    cv::imshow("Visualize Reprojection Frame", display);
+    cv::waitKey();
 }
 
 // feature extraction with SIFT detector
@@ -46,9 +78,9 @@ void Initializer::FeatureMatcher() {
     std::vector<std::vector<cv::DMatch>> vmatches;
 
     // first argument is the feature descriptor from the query image, the second argument is the feature descriptor from the train image. 
-    // here our query is the features from the reference frame
-    // our train is the features from the current frame
-    descMatcher.knnMatch(frame->refFrame->desc, frame->desc, vmatches, 1);
+    // here our train is the features from the reference frame
+    // our query is the features from the current frame
+    descMatcher.knnMatch(frame->desc, frame->refFrame->desc, vmatches, 1);
     for (int i = 0; i < static_cast<int>(vmatches.size()); ++i) {
         if (!vmatches[i].size()) {
             continue;
@@ -71,7 +103,7 @@ void Initializer::FeatureMatcher() {
 
 void Initializer::RANSAC() {
      float cMinimalCost = 1e10;
-     int maxTrials = 50;
+     int maxTrials = 100;
      float threshold = 100, tolerance = 5.991464547107979, cost=0;
      float p = 0.99, alpha = 0.95, w = 0;
 
@@ -82,8 +114,9 @@ void Initializer::RANSAC() {
         // select a random sample from the matches
         std::vector<cv::DMatch> selected_matches;
         for (size_t i = 0; i < minMatches; i++) {
-            int random = std::rand() % frame->matches.size(); 
-            selected_matches.push_back(frame->matches[random]);
+            std::random_shuffle(frame->matches.begin(), frame->matches.end());
+            selected_matches.push_back(frame->matches[0]);
+            selected_matches.push_back(frame->matches[1]);
         }
         
         cv::Mat minimumSol;
@@ -92,17 +125,18 @@ void Initializer::RANSAC() {
 
         cost = ComputeCost(minimumSol, tolerance, tempInliers);
 
-        std::cout << cost << std::endl;
+        // std::cout << cost << std::endl;
+
         // use the matching feature coordinates to calculate model estimation: rotation
         // use the rotation to calculate all the matches in term of reprojection error
         if (cost < cMinimalCost) {
             cMinimalCost = cost;
             minimumSol.copyTo(optSol);
+            std::cout << tempInliers.size() << std::endl;
             // w = 
             // maxTrials = std::log(1-p) / std::log(1-std::)
         }
         // adaptive values
-
      }
      // calculate the final error of optimal model
      // calculate the inliers using the optimal model
@@ -134,8 +168,12 @@ float Initializer::ComputeCost(cv::Mat &R, float tolerance, std::vector<std::tup
     inliers.clear();
     for (size_t i = 0; i < xp.cols; i++) {
         double norm = cv::norm(xp.col(i) - refPts.col(i), cv::NORM_L2);
-        cost += (norm > tolerance) ? tolerance : norm;
-        inliers.push_back(std::tuple<int, int>(frame->matches[i].trainIdx, frame->matches[i].queryIdx));
+        if (norm > tolerance) {
+            cost += tolerance;
+        } else {
+            cost += norm;
+            inliers.push_back(std::tuple<int, int>(frame->matches[i].trainIdx, frame->matches[i].queryIdx));
+        }
     }
     return cost;
 }
@@ -151,20 +189,21 @@ void Initializer::SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::M
     4) if det(U) * det(V) > 0: R = U * V.T
     5) assert that det(R) == 1
     */
+
+    // estimating the rotation from current to previous frame
     cv::Mat B, C;
     for (auto m : matches) {
         // need to double check whether the query and train associate with the reference frame and current frame
         cv::KeyPoint kptRef = frame->refFrame->kpts[m.trainIdx], kptCurr = frame->kpts[m.queryIdx];
         cv::Mat x = (cv::Mat_<float>(1,3) << kptRef.pt.x, kptRef.pt.y, 1);
         cv::Mat xp = (cv::Mat_<float>(1,3) << kptCurr.pt.x, kptCurr.pt.y, 1);
-        B.push_back(x); // n x 3
-        C.push_back(xp); // n x 3
+        B.push_back(xp); // n x 3
+        C.push_back(x); // n x 3
     }
+    
     B = B.t(); C = C.t(); // 3 x n
-    std::cout << B << std::endl;
     B = Utility::Normalize(B, frame->K); C = Utility::Normalize(C, frame->K);
     cv::Mat S = C * B.t();
-    std::cout << S << std::endl;
     
     cv::SVD s;
     cv::Mat u, sigma, vt;
@@ -175,27 +214,25 @@ void Initializer::SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::M
         solution = u * diag * vt;
     } else {
         solution = u * vt;
-    } 
-    std::cout << "R determinant: " << cv::determinant(solution) << std::endl;
+    }
+    // std::cout << "R determinant: " << cv::determinant(solution) << std::endl;
 }
 
 void Initializer::SolveCalibratedRotationDLT() {
-    // B is the homogeneous coordinate of points in the reference frame
-    // C is the homogeneous coordinate of points in the current frame
+    // B is the homogeneous coordinate of points in the current frame
+    // C is the homogeneous coordinate of points in the reference frame
     cv::Mat B, C;
     for (auto t: frame->inliers) {
         cv::Mat x = (cv::Mat_<float>(1,3) << frame->refFrame->kpts[std::get<0>(t)].pt.x, frame->refFrame->kpts[std::get<0>(t)].pt.y, 1);
         cv::Mat xp = (cv::Mat_<float>(1,3) << frame->kpts[std::get<1>(t)].pt.x, frame->kpts[std::get<1>(t)].pt.y, 1);
-        B.push_back(x); // n x 3
-        C.push_back(xp); // n x 3
+        B.push_back(xp); // n x 3
+        C.push_back(x); // n x 3
     }
     
     B = B.t(); C = C.t(); // 3 x n
-    std::cout << B << std::endl;
     B = Utility::Normalize(B, frame->K); C = Utility::Normalize(C, frame->K);
     cv::Mat S = C * B.t();
-    std::cout << S << std::endl;
-    
+
     cv::SVD s;
     cv::Mat u, sigma, vt;
     s.compute(S, sigma, u, vt);
@@ -206,8 +243,8 @@ void Initializer::SolveCalibratedRotationDLT() {
     } else {
         frame->refR = u * vt;
     }
-    frame->R = frame->refR * frame->refFrame->R;
-    std::cout << "R determinant: " << cv::determinant(frame->refR) << std::endl;
+    frame->R = frame->refFrame->R * frame->refR;
+    // std::cout << "R determinant: " << cv::determinant(frame->refR) << std::endl;
 }
 
 void Initializer::InitializeScenePoints(std::map<int, Point *> &scenePoints) {

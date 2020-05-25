@@ -22,7 +22,9 @@ class Frame {
         // If no scene point exists associated with the kpt index, we will create a new Point in the initializer
         // If scene point exists associated with the kpt index, we will add observation on that scene point
         std::map<int, int> scenePts;
-
+        
+        //refR is the estimated rotation matrix from current to previous frame
+        // R is the estimated rotation matrix from current to the first frame
         cv::Mat img, desc, refR, R;
     
         Frame(int frameId, bool isFirst, cv::Mat &imgData, Frame *refFrame);

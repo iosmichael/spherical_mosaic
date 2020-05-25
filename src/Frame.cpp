@@ -19,9 +19,9 @@ void Frame::visualize() {
         printf( "-- Good Match [%d] Keypoint 1: %d  -- Keypoint 2: %d  \n", i, matches[i].queryIdx,  matches[i].trainIdx ); 
 
         //query image is the first frame
-        cv::Point2f point_old = refFrame->kpts[matches[i].queryIdx].pt;
+        cv::Point2f point_old = refFrame->kpts[matches[i].trainIdx].pt;
         //train  image is the next frame that we want to find matched keypoints
-        cv::Point2f point_new = kpts[matches[i].trainIdx].pt;
+        cv::Point2f point_new = kpts[matches[i].queryIdx].pt;
 
         //keypoint color for frame 1: RED
         cv::circle(refFrameImg, point_old, 3, cv::Scalar(0, 0, 255), 1);  
@@ -36,7 +36,7 @@ void Frame::visualize() {
         cv::line(frameImg, point_old, point_new, cv::Scalar(0, 255, 0), 2, 8, 0); 
     }
     cv::imshow("Reference Frame", refFrameImg);
-    cv::imshow("Current Frame", frameImg);
+    // cv::imshow("Current Frame", frameImg);
     cv::waitKey();
 }
 

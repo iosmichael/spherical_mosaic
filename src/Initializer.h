@@ -31,14 +31,16 @@ public:
     // static variables
     static cv::Ptr<cv::xfeatures2d::SIFT> detector;
     const double kDistanceCoef = 4.0;
-    const int kMaxMatchingSize = 50;
+    const int kMaxMatchingSize = 100;
     // end static variables
 
     Frame *frame;
 
     Initializer(Frame *frame);
     ~Initializer();
+
     void initialize(std::map<int, Point *> &scenePoints);
+    void visualize();
 
 private:
     void FeatureExtractor();

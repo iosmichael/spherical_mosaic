@@ -44,6 +44,7 @@ int main(int argc, char** argv) {
     readImages(argv[1], img_path);
     std::sort(img_path.begin(), img_path.end());
     testGraph(img_path);
+
     /*
     std::vector<Frame *> frames;    
     
@@ -102,6 +103,7 @@ void testGraph(std::vector<std::string> &img_path) {
     Frame *prevFrame = nullptr;
     for (auto path : img_path) {
         cv::Mat img = cv::imread(path, cv::IMREAD_COLOR);
+        cv::resize(img, img, cv::Size(img.cols / 5, img.rows / 5));
         graph.AddFrame(img);
     }
 }
