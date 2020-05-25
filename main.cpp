@@ -24,7 +24,7 @@ using namespace cv;
 void readImages(char *dirpath, std::vector<std::string> &image_path);
 
 void test();
-void testGraph();
+void testGraph(std::vector<std::string> &img_path);
 
 float fx = 2569.31, fy = 2566.96;
 float cx = 2755.64, cy = 1788.42;
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     
     readImages(argv[1], img_path);
     std::sort(img_path.begin(), img_path.end());
-    testGraph();
+    testGraph(img_path);
     /*
     std::vector<Frame *> frames;    
     
@@ -96,14 +96,14 @@ void test() {
 }
 
 void testGraph(std::vector<std::string> &img_path) {
-    // Graph graph = Graph();
+    Graph graph = Graph();
     
-    // int countId = 0;
-    // Frame *prevFrame = nullptr;
-    // for (auto path : img_path) {
-    //     cv::Mat img = cv::imread(path, cv::IMREAD_COLOR);
-    //     graph.AddFrame(img);
-    // }
+    int countId = 0;
+    Frame *prevFrame = nullptr;
+    for (auto path : img_path) {
+        cv::Mat img = cv::imread(path, cv::IMREAD_COLOR);
+        graph.AddFrame(img);
+    }
 }
 
 void readImages(char *dirpath, std::vector<std::string> &image_path) {

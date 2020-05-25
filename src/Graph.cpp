@@ -10,7 +10,9 @@ void Graph::AddFrame(cv::Mat img) {
     frame->printStatus();
 }
 
+Graph::Graph() { }
+
 Graph::~Graph() {
-    for (auto p : points) delete p;
+    for (auto p : points) delete p.second;
     for (auto f : frames) delete f;
 }

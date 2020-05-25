@@ -7,7 +7,7 @@ Initializer::Initializer(Frame *frame): frame(frame) { }
 
 Initializer::~Initializer() { }
 
-void Initializer::initialize(std::vector<Point *> &scenePoints) {
+void Initializer::initialize(std::map<int, Point *> &scenePoints) {
     if (!frame->isFirst)
     {            
         FeatureExtractor();
@@ -71,8 +71,10 @@ void Initializer::FeatureMatcher() {
 
 void Initializer::RANSAC() {
      float cMinimalCost = 1e10;
-     int maxTrials = 10;
-     float threshold, tolerance, cost;
+     int maxTrials = 50;
+     float threshold = 100, tolerance = 5.991464547107979, cost=0;
+     float p = 0.99, alpha = 0.95, w = 0;
+
      int minMatches = 2;
      cv::Mat optSol;
      std::vector<std::tuple<int, int>> tempInliers;
@@ -96,6 +98,8 @@ void Initializer::RANSAC() {
         if (cost < cMinimalCost) {
             cMinimalCost = cost;
             minimumSol.copyTo(optSol);
+            // w = 
+            // maxTrials = std::log(1-p) / std::log(1-std::)
         }
         // adaptive values
 
@@ -201,26 +205,28 @@ void Initializer::SolveCalibratedRotationDLT() {
         frame->refR = u * diag * vt;
     } else {
         frame->refR = u * vt;
-    } 
+    }
+    frame->R = frame->refR * frame->refFrame->R;
     std::cout << "R determinant: " << cv::determinant(frame->refR) << std::endl;
 }
 
-void Initializer::InitializeScenePoints(std::vector<Point *> &scenePoints) {
+void Initializer::InitializeScenePoints(std::map<int, Point *> &scenePoints) {
     // <int, point pointer> : int is our kpt index
     // <int, int> : t, where the first element is reference kpts index, the second element is current kpts index
     for (auto t: frame->inliers) {
         if (frame->refFrame->scenePts.count(std::get<0>(t))) {
             // reference frame has already initialized the scenePts
-            Point *sP = frame->refFrame->scenePts[std::get<0>(t)];
+            int sP = frame->refFrame->scenePts[std::get<0>(t)];
             frame->scenePts[std::get<1>(t)] = sP;
-            sP->AddObservation(frame, (int) std::get<1>(t));
+            scenePoints[sP]->AddObservation(frame, (int) std::get<1>(t));
         } else {
-            Point *sP = new Point(frame->frameId + scenePoints.size() + 1e3);
-            frame->scenePts[std::get<1>(t)] = sP;
-            frame->refFrame->scenePts[std::get<0>(t)] = sP;
+            int pID = frame->frameId + scenePoints.size() + 1e3;
+            Point *sP = new Point(pID);
+            frame->scenePts[std::get<1>(t)] = pID;
+            frame->refFrame->scenePts[std::get<0>(t)] = pID;
             sP->AddObservation(frame->refFrame, (int) std::get<0>(t));
             sP->AddObservation(frame, (int) std::get<1>(t));
-            scenePoints.push_back(sP);
+            scenePoints[pID] = sP;
         }
     }
 }

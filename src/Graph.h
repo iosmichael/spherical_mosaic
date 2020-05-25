@@ -9,13 +9,14 @@ date: 5/23/2020
 
 #pragma once
 #include <vector>
+#include <map>
 #include "Frame.h"
 #include "Point.h"
 
 class Graph {
 public:
     std::vector<Frame *> frames;
-    std::vector<Point *> points;
+    std::map<int, Point *> points;
 
     Graph();
     ~Graph();

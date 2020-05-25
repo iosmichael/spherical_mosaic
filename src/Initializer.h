@@ -16,6 +16,7 @@ date: 5/23/2020
 #include <algorithm>
 #include <random>
 #include <tuple>
+#include <map>
 
 #include <opencv2/opencv.hpp>
 #include <opencv/cv.hpp>
@@ -37,7 +38,7 @@ public:
 
     Initializer(Frame *frame);
     ~Initializer();
-    void initialize(std::vector<Point *> &scenePoints);
+    void initialize(std::map<int, Point *> &scenePoints);
 
 private:
     void FeatureExtractor();
@@ -47,5 +48,5 @@ private:
     void ComputeInliers(cv::Mat &R);
     void SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::Mat &solution);
     void SolveCalibratedRotationDLT();
-    void InitializeScenePoints(std::vector<Point *> &scenePoints);
+    void InitializeScenePoints(std::map<int, Point *> &scenePoints);
 };
