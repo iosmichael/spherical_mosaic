@@ -15,7 +15,7 @@ void Initializer::initialize(std::map<int, Point *> &scenePoints) {
         SolveCalibratedRotationDLT();
         // frame has refR initialized with a set of inliers
         frame->isInitialize = true;
-        frame->visualize();
+        // frame->visualize();
         visualize();
 
         // if frame inliers are related to unseen scene points, initialize the scenepoints
@@ -104,7 +104,8 @@ void Initializer::FeatureMatcher() {
 void Initializer::RANSAC() {
      float cMinimalCost = 1e10;
      int maxTrials = 100;
-     float threshold = 100, tolerance = 5.991464547107979, cost=0;
+     // tolerance = 5.991464547107979
+     float threshold = 100, tolerance = 4, cost=0;
      float p = 0.99, alpha = 0.95, w = 0;
 
      int minMatches = 2;
@@ -132,7 +133,6 @@ void Initializer::RANSAC() {
         if (cost < cMinimalCost) {
             cMinimalCost = cost;
             minimumSol.copyTo(optSol);
-            std::cout << tempInliers.size() << std::endl;
             // w = 
             // maxTrials = std::log(1-p) / std::log(1-std::)
         }
@@ -200,7 +200,7 @@ void Initializer::SolveCalibratedRotation(std::vector<cv::DMatch> matches, cv::M
         B.push_back(xp); // n x 3
         C.push_back(x); // n x 3
     }
-    
+
     B = B.t(); C = C.t(); // 3 x n
     B = Utility::Normalize(B, frame->K); C = Utility::Normalize(C, frame->K);
     cv::Mat S = C * B.t();

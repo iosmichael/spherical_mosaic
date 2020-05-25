@@ -40,3 +40,14 @@ sudo updatedb
 locate OpenCVConfig.cmake
 ```
 The command will give you the path for OpenCVConfig.cmake (normally under the folder /usr/local/share/OpenCV/), open the file and find the line "SET(OpenCV_VERSION *.*.*)". Make sure the number match with 3.4.2.
+
+## Eigen3 INCLUDE ISSUE
+
+When we use **CERES** library, the include header will often gives warning on "Eigen/Core" not found in the system path, in spite of including Eigen3 exclusively in our CMAKELIST.txt. To resolve this issue, we need to create a soft-link in the eigen3 directory.
+
+The path to eigen3 directory can be found by printing out the CMAKE variable $EIGEN3_INCLUDE_DIRS
+
+```bash
+cd <path-directory-to-eigen3>
+sudo ln -sf eigen3/Eigen Eigen
+```

@@ -12,8 +12,9 @@ find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
 
 message("OPENCV_VERSION: " ${OpenCV_VERSION} "     [MAKE SURE IT'S 3.4.2]")
+message("EIGEN3_PATH: " ${EIGEN3_INCLUDE_DIRS})
 
-include_directories(${OpenCV_INCLUDE_DIRS} ${CERES_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS} ${glog_INCLUDE_DIR} ${Boost_INCLUDE_DIRS})
+include_directories(${OpenCV_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS} ${CERES_INCLUDE_DIR} ${glog_INCLUDE_DIR} ${Boost_INCLUDE_DIRS})
 
 file(GLOB MOSAIC_SOURCE_FILE "src/*.h" "src/*.cpp")
 
