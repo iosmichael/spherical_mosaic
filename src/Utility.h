@@ -2,6 +2,7 @@
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
+#include <tuple>
 
 namespace Utility
 {
@@ -37,5 +38,24 @@ namespace Utility
         }
         return normalized;
     }
+
+    // min_x, min_y, max_x, max_y
+    inline std::vector<float> MosaicLimits(cv::Mat &R, cv::Mat &K, cv::Size size) {
+        cv::Mat H = K * R * K.inv();
+        cv::Mat origin = cv::Mat::zeros(3,1,CV_32F), bottomRight = (cv::Mat_<float>(3,1) << size.width, size.height, 1);
+        origin = Dehomogenize(H * origin), bottomRight = Dehomogenize(H * bottomRight);
+        std::vector<float> limits;
+        float xMin = origin.at<float>(0,0), yMin = origin.at<float>(1,0);
+        float xMax = bottomRight.at<float>(0,0), yMax = bottomRight.at<float>(1,0);
+        return std::vector<float> {xMin, yMin, xMax, yMax};
+    }
+
+    void SphericalWarp(cv::Mat &src, cv::Mat &R, cv::Mat &K, cv::Mat &dst);
+
+    void ComputeSphericalWarpMappings(cv::Mat &img, cv::Mat &R, cv::Mat &K, std::pair<cv::Mat, cv::Mat> &xyMap);
+
+    void WarpLocal(cv::Mat &src, std::pair<cv::Mat, cv::Mat> &xyMap, cv::Mat &dst);
+
+    void PanoramaSphericalWarp(cv::Mat img);
 
 } // namespace Utility

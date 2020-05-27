@@ -250,12 +250,14 @@ void Initializer::SolveCalibratedRotationDLT() {
 void Initializer::InitializeScenePoints(std::map<int, Point *> &scenePoints) {
     // <int, point pointer> : int is our kpt index
     // <int, int> : t, where the first element is reference kpts index, the second element is current kpts index
+    int createdCount = 0, updatedCount = 0;
     for (auto t: frame->inliers) {
         if (frame->refFrame->scenePts.count(std::get<0>(t))) {
             // reference frame has already initialized the scenePts
             int sP = frame->refFrame->scenePts[std::get<0>(t)];
             frame->scenePts[std::get<1>(t)] = sP;
             scenePoints[sP]->AddObservation(frame, (int) std::get<1>(t));
+            updatedCount += 1;
         } else {
             int pID = frame->frameId + scenePoints.size() + 1e3;
             Point *sP = new Point(pID);
@@ -264,6 +266,9 @@ void Initializer::InitializeScenePoints(std::map<int, Point *> &scenePoints) {
             sP->AddObservation(frame->refFrame, (int) std::get<0>(t));
             sP->AddObservation(frame, (int) std::get<1>(t));
             scenePoints[pID] = sP;
+            createdCount += 1;
         }
     }
+    std::cout << createdCount << " of points created" << std::endl;
+    std::cout << updatedCount << " of points updated" << std::endl;
 }

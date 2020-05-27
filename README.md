@@ -51,3 +51,10 @@ The path to eigen3 directory can be found by printing out the CMAKE variable $EI
 cd <path-directory-to-eigen3>
 sudo ln -sf eigen3/Eigen Eigen
 ```
+
+## Directly Converting cv::Mat to Eigen::Matrix
+
+```c++
+cv::Mat cvMatrix(4,4,CV_32FC1); //directly use the buffer allocated by OpenCV 
+Eigen::Map<Matrix4f> eigenMatrix( cvMatrix.data() );
+```

@@ -18,6 +18,7 @@ date: 5/13/2020
 #include "src/Frame.h"
 #include "src/Graph.h"
 #include "src/Initializer.h"
+#include "src/Mosaic.h"
 
 using namespace cv;
 
@@ -103,9 +104,25 @@ void testGraph(std::vector<std::string> &img_path) {
     Frame *prevFrame = nullptr;
     for (auto path : img_path) {
         cv::Mat img = cv::imread(path, cv::IMREAD_COLOR);
-        cv::resize(img, img, cv::Size(img.cols / 5, img.rows / 5));
-        graph.AddFrame(img);
+        cv::Mat destImg = img;
+        // K1: -0.0484573  K2: 0.0100024   K3: 0
+        // P1: 0.00050623  P2: 0.000603611
+        
+        // cv::Mat coeffs = (cv::Mat_<float>(1,8,CV_32F) << -0.0484573, 0.0100024, 0.00050623, 0.000603611, 0, 0, 0, 0);
+        // cv::InputArray distortCoeffs = cv::InputArray(coeffs);
+        // cv::undistort(img, destImg, Frame::K, distortCoeffs);
+        cv::resize(destImg, destImg, cv::Size(destImg.cols / 5, destImg.rows / 5));
+        graph.AddFrame(destImg);
+        countId += 1;
+        if (countId >= 10) break;
     }
+
+    for (auto f : graph.frames) {
+        std::cout << "rotation of frame " << f->frameId << ": " << f->R << std::endl;
+    }
+
+    MosaicCamera mosaic {90,100,100,cv::Mat::eye(cv::Size(3,3), CV_32F)};
+    mosaic.Visualize(cv::Mat::eye(cv::Size(3,3), CV_32F), graph.frames);
 }
 
 void readImages(char *dirpath, std::vector<std::string> &image_path) {
