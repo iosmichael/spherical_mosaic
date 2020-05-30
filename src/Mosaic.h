@@ -16,6 +16,6 @@ private:
 
     float fov, width, height;
     cv::Mat refRotation;
-    cv::Mat cameraCalibration;
+    cv::Mat virtualK;
 
 };

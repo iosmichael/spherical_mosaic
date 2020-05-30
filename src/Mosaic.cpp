@@ -1,7 +1,19 @@
 #include "Mosaic.h"
 #include "Utility.h"
 
-MosaicCamera::MosaicCamera(float fov, int width, int height, cv::Mat refRotation): fov(fov), width(width), height(height), refRotation(refRotation) { }
+MosaicCamera::MosaicCamera(float fov, int width, int height, cv::Mat refRotation): fov(fov), width(width), height(height), refRotation(refRotation) { 
+    using std::tan;
+
+    const float fx = ( width  / static_cast<float>( 2 ) ) / tan( fov / 2 );
+    const float fy = ( height / static_cast<float>( 2 ) ) / tan( fov / 2 );
+    const float cx = ( width  - 1 ) / static_cast<float>( 2 );
+    const float cy = ( height - 1 ) / static_cast<float>( 2 );
+    virtualK = cv::Mat::eye(cv::Size(3,3), CV_32F);
+    virtualK.at<float>(0,0) = fx;
+    virtualK.at<float>(1,1) = fy;
+    virtualK.at<float>(0,2) = cx;
+    virtualK.at<float>(1,2) = cy;
+}
 
 MosaicCamera::~MosaicCamera() { }
 
@@ -25,7 +37,7 @@ void MosaicCamera::Visualize(cv::Mat refRotation, std::vector<Frame *>frames) {
 
     for (auto f: frames) {
         cv::Mat R = refRotation * f->R;
-        Utility::SphericalWarp(f->img, R, f->K, mosaic);
+        Utility::SphericalWarp(f->img, R, f->K, f->K, mosaic);
     }
 
     std::cout << "Visualizing Mosaic Reconstruction" << std::endl;

@@ -16,8 +16,8 @@ void Initializer::initialize(std::map<int, Point *> &scenePoints) {
         SolveCalibratedRotationDLT();
         // frame has refR initialized with a set of inliers
         frame->isInitialize = true;
-        // frame->visualize();
-        visualize();
+
+        // visualize();
 
         // if frame inliers are related to unseen scene points, initialize the scenepoints
         // if frame inliers are related to seen scene points, update the scenepoints with new observation
@@ -245,7 +245,7 @@ void Initializer::SolveCalibratedRotationDLT() {
     }
     frame->R = frame->refFrame->R * frame->refR;
     // std::cout << "R determinant: " << cv::determinant(frame->refR) << std::endl;
-    float R[9] = {0};
+    double R[9] = {0};
     for(size_t i = 0; i < 3; ++i)
     {
         for(size_t j = 0; j < 3; ++j)

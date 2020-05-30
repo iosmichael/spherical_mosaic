@@ -9,6 +9,7 @@ date: 5/13/2020
 #include <string>
 #include <boost/filesystem.hpp>
 #include <vector>
+#include <cmath>
 #include <opencv2/opencv.hpp>
 #include <opencv/cv.hpp>
 #include <opencv2/core.hpp>
@@ -103,8 +104,8 @@ void testGraph(std::vector<std::string> &img_path) {
     }
 
     graph.Optimize();
-    // MosaicCamera mosaic {90,100,100,cv::Mat::eye(cv::Size(3,3), CV_32F)};
-    // mosaic.Visualize(cv::Mat::eye(cv::Size(3,3), CV_32F), graph.frames);
+    MosaicCamera mosaic {1.5708,2000,2000,cv::Mat::eye(cv::Size(3,3), CV_32F)};
+    mosaic.Visualize(cv::Mat::eye(cv::Size(3,3), CV_32F), graph.frames);
 }
 
 void testSphericalMapping(std::vector<std::string> &img_path) {

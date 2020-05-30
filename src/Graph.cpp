@@ -50,19 +50,11 @@ void Graph::Optimize() {
                 SphericalReprojectionError::Create(var1,  // index of the camera
                                                    var2,
                                                    K); // index of the point
-            double camera[3], scenePts[3];
-            camera[0] = static_cast<double>(frame->angleAxis[0]);
-            camera[1] = static_cast<double>(frame->angleAxis[1]);
-            camera[2] = static_cast<double>(frame->angleAxis[2]);
-
-            scenePts[0] = static_cast<double>(p.second->X[0]);
-            scenePts[1] = static_cast<double>(p.second->X[1]);
-            scenePts[2] = static_cast<double>(p.second->X[2]);
 
             problem.AddResidualBlock(cost_function, 
                                     NULL /* squared loss */,
-                                    camera, // float[3]
-                                    scenePts);
+                                    frame->angleAxis, // float[3]
+                                    p.second->X);
         }
     }
 
@@ -79,6 +71,41 @@ void Graph::Optimize() {
     ceres::Solve(options, &problem, &summary);
     std::cout << summary.FullReport() << "\n";
 
+    std::cout << "after bundle adjustment (sse): " << std::endl;
+    testAngleAxisChange();
+    updateAngleAxisToRotation();
+}
+
+void Graph::updateAngleAxisToRotation() {
+    for (Frame *frame: frames) {
+        double R[9] = {0};
+        ceres::AngleAxisToRotationMatrix(frame->angleAxis, R);
+        for (size_t i = 0; i < 3; i++) {
+            for (size_t j = 0; j < 3; j++) {
+                frame->R.at<float>(i,j) = static_cast<float>(R[i * 3 + j]);
+            }
+        }
+    }
+}
+
+void Graph::testAngleAxisChange() {
+    double diff = 0;
+    double R[9] = {0}, prevAngleAxis[3] = {0};
+    for (Frame *frame: frames) {
+        for (size_t i = 0; i < 3; i++) {
+            for (size_t j = 0; j < 3; j++) {
+                R[i * 3 + j] = static_cast<double>(frame->R.at<float>(i, j));
+            }
+        }
+        ceres::RotationMatrixToAngleAxis(R, prevAngleAxis);
+        std::cout << "angle axis previous: " << prevAngleAxis[0] << ", " << prevAngleAxis[1] << ", " << prevAngleAxis[2] << std::endl;
+        std::cout << "angle axis current: " << frame->angleAxis[0] << ", " << frame->angleAxis[1] << ", " << frame->angleAxis[2] << std::endl;
+        double error = std::sqrt(std::pow(prevAngleAxis[0] - frame->angleAxis[0], 2) +
+                                std::pow(prevAngleAxis[1] - frame->angleAxis[1], 2) +
+                                std::pow(prevAngleAxis[2] - frame->angleAxis[2], 2));
+        diff += error;
+    }
+    std::cout << "total difference is: " << diff << std::endl;
 }
 
 Graph::Graph() { }

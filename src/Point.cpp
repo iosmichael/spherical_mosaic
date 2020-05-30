@@ -26,7 +26,7 @@ void Point::Update() {
     pt = cv::Point3f(avgPt);
 
     // update parameters used for bundle adjustment
-    X[0] = pt.x;
-    X[1] = pt.y;
-    X[2] = pt.z;
+    X[0] = static_cast<double>(pt.x);
+    X[1] = static_cast<double>(pt.y);
+    X[2] = static_cast<double>(pt.z);
 }

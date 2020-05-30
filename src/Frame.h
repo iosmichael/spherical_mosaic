@@ -28,7 +28,7 @@ class Frame {
         cv::Mat img, desc, refR, R;
         
         //angle axis representation use for modification of bundle adjustment
-        float *angleAxis = new float[3];
+        double *angleAxis = new double[3];
     
         Frame(int frameId, bool isFirst, cv::Mat &imgData, Frame *refFrame);
         ~Frame();

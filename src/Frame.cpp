@@ -3,6 +3,7 @@
 Frame::Frame(int frameId, bool isFirst, cv::Mat &imgData, Frame *refFrame):frameId(frameId), isFirst(isFirst), hasKeyPoints(false), isInitialize(false), refFrame(refFrame) {
     if (isFirst){
         R = cv::Mat::eye(3,3,CV_32F);
+        angleAxis[0] = angleAxis[1] = angleAxis[2] = 0;
         refR = cv::Mat::eye(3,3,CV_32F);
     }
     imgData.copyTo(img);

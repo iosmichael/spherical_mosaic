@@ -10,7 +10,7 @@ public:
     std::map<Frame *, int> observations;
     
     // points used for bundle adjustment application
-    float *X = new float[3];
+    double *X = new double[3];
 
     Point(int id);
     ~Point(); 

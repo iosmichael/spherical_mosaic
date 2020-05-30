@@ -52,9 +52,9 @@ namespace Utility
 
     void WarpLocal(cv::Mat &src, std::pair<cv::Mat, cv::Mat> &xyMap, cv::Mat &dst);
 
-    void SphericalWarp(cv::Mat &src, cv::Mat &R, cv::Mat &K, cv::Mat &dst);
+    void SphericalWarp(cv::Mat &src, cv::Mat &R, cv::Mat &vK, cv::Mat &K, cv::Mat &dst);
 
-    void ComputeSphericalWarpMappings(cv::Mat &img, cv::Mat &R, cv::Mat &K, std::pair<cv::Mat, cv::Mat> &xyMap);
+    void ComputeSphericalWarpMappings(cv::Mat &img, cv::Mat &R, cv::Mat &vK, cv::Mat &K, std::pair<cv::Mat, cv::Mat> &xyMap);
 
     void PanoramaSphericalWarp(cv::Mat img);
 

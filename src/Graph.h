@@ -10,6 +10,7 @@ date: 5/23/2020
 #pragma once
 #include <vector>
 #include <map>
+#include <cmath>
 #include <ceres/ceres.h>
 #include <ceres/rotation.h>
 #include "Frame.h"
@@ -25,6 +26,10 @@ public:
 
     void AddFrame(cv::Mat img);
     void Optimize();
+
+private:
+    void testAngleAxisChange();
+    void updateAngleAxisToRotation();
 };
 
 struct SphericalReprojectionError {
