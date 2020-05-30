@@ -23,6 +23,7 @@ date: 5/23/2020
 #include <opencv2/core.hpp>
 #include <opencv2/xfeatures2d/nonfree.hpp>
 #include <opencv2/highgui.hpp>
+#include <Eigen/Core>
 #include "Frame.h"
 #include "Point.h"
 
@@ -31,7 +32,7 @@ public:
     // static variables
     static cv::Ptr<cv::xfeatures2d::SIFT> detector;
     const double kDistanceCoef = 4.0;
-    const int kMaxMatchingSize = 100;
+    const int kMaxMatchingSize = 200;
     // end static variables
 
     Frame *frame;

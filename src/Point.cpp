@@ -3,7 +3,7 @@
 
 Point::Point(int id): pointID(id) { }
 
-Point::~Point() { } 
+Point::~Point() { delete X; } 
     
 void Point::AddObservation(Frame *frame, int index) {
     observations[frame] = index;
@@ -24,4 +24,9 @@ void Point::Update() {
     int sign = (avgPt.at<float>(2,0) < 0) ? -1 : 1;
     avgPt /= cv::norm(avgPt, cv::NORM_L2) * sign;
     pt = cv::Point3f(avgPt);
+
+    // update parameters used for bundle adjustment
+    X[0] = pt.x;
+    X[1] = pt.y;
+    X[2] = pt.z;
 }

@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 #include <tuple>
-#include <string>
+#include <string>   
 #include <opencv/cv.hpp>
 
 class Frame {
@@ -26,6 +26,9 @@ class Frame {
         //refR is the estimated rotation matrix from current to previous frame
         // R is the estimated rotation matrix from current to the first frame
         cv::Mat img, desc, refR, R;
+        
+        //angle axis representation use for modification of bundle adjustment
+        float *angleAxis = new float[3];
     
         Frame(int frameId, bool isFirst, cv::Mat &imgData, Frame *refFrame);
         ~Frame();

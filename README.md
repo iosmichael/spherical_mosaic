@@ -57,4 +57,6 @@ sudo ln -sf eigen3/Eigen Eigen
 ```c++
 cv::Mat cvMatrix(4,4,CV_32FC1); //directly use the buffer allocated by OpenCV 
 Eigen::Map<Matrix4f> eigenMatrix( cvMatrix.data() );
+#include <opencv2/core/eigen.hpp>
+cv::eigen2cv, cv::cv2eigen;
 ```

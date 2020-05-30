@@ -9,6 +9,9 @@ public:
     cv::Point3f pt;
     std::map<Frame *, int> observations;
     
+    // points used for bundle adjustment application
+    float *X = new float[3];
+
     Point(int id);
     ~Point(); 
     

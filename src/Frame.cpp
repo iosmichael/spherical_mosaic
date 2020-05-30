@@ -8,7 +8,7 @@ Frame::Frame(int frameId, bool isFirst, cv::Mat &imgData, Frame *refFrame):frame
     imgData.copyTo(img);
 }
 
-Frame::~Frame() { }
+Frame::~Frame() { delete angleAxis; }
 
 void Frame::visualize() {
     assert(isInitialize);
@@ -36,7 +36,6 @@ void Frame::visualize() {
         cv::line(frameImg, point_old, point_new, cv::Scalar(0, 255, 0), 2, 8, 0); 
     }
     cv::imshow("Reference Frame", refFrameImg);
-    // cv::imshow("Current Frame", frameImg);
     cv::waitKey();
 }
 

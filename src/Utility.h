@@ -50,11 +50,11 @@ namespace Utility
         return std::vector<float> {xMin, yMin, xMax, yMax};
     }
 
+    void WarpLocal(cv::Mat &src, std::pair<cv::Mat, cv::Mat> &xyMap, cv::Mat &dst);
+
     void SphericalWarp(cv::Mat &src, cv::Mat &R, cv::Mat &K, cv::Mat &dst);
 
     void ComputeSphericalWarpMappings(cv::Mat &img, cv::Mat &R, cv::Mat &K, std::pair<cv::Mat, cv::Mat> &xyMap);
-
-    void WarpLocal(cv::Mat &src, std::pair<cv::Mat, cv::Mat> &xyMap, cv::Mat &dst);
 
     void PanoramaSphericalWarp(cv::Mat img);
 

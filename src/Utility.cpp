@@ -17,7 +17,7 @@ void Utility::ComputeSphericalWarpMappings(cv::Mat &img, cv::Mat &R, cv::Mat &K,
         for (size_t j = 0; j < width; j++) {
             // perform inverse spherical projection: uv -> XYZ
             // std::cout << "uv coord " << i << ", " << j << std::endl;
-            float xf = (j - cx) / fx, yf = (i - cy) / fy;
+            // float xf = (j - cx) / fx, yf = (i - cy) / fy;
             // cv::Mat X = (cv::Mat_<float>(3,1,CV_32F) << std::sin(xf) * std::cos(yf), std::sin(yf), std::cos(xf) * std::cos(yf));
             cv::Mat X = (cv::Mat_<float>(3,1,CV_32F) << j, i, 1);
             // perform forward spherical projection: XYZ->uv
@@ -46,7 +46,7 @@ void Utility::PanoramaSphericalWarp(cv::Mat img) {
     cv::detail::SphericalWarper warper {1.0f};
     warper.warp(img, K, R, cv::INTER_LINEAR, cv::BORDER_DEFAULT, panorama);
     std::cout << "Image Spherical Warpping" << std::endl;
-
+    
     // cv::imshow("Spherical Panorama", panorama);
     // cv::waitKey(0);
 }

@@ -1,5 +1,6 @@
 #include "Initializer.h"
 #include "Utility.h"
+#include <ceres/rotation.h>
 
 cv::Ptr<cv::xfeatures2d::SIFT> Initializer::detector = cv::xfeatures2d::SIFT::create();
 
@@ -97,7 +98,7 @@ void Initializer::FeatureMatcher() {
     while (frame->matches.size() > kMaxMatchingSize) {
         frame->matches.pop_back();
     }
-    // perform outlier rejection on the feature matching
+
     RANSAC();
 }
 
@@ -105,7 +106,7 @@ void Initializer::RANSAC() {
      float cMinimalCost = 1e10;
      int maxTrials = 100;
      // tolerance = 5.991464547107979
-     float threshold = 100, tolerance = 4, cost=0;
+     float threshold = 100, tolerance = 5.991464547107979, cost=0;
      float p = 0.99, alpha = 0.95, w = 0;
 
      int minMatches = 2;
@@ -133,7 +134,6 @@ void Initializer::RANSAC() {
         if (cost < cMinimalCost) {
             cMinimalCost = cost;
             minimumSol.copyTo(optSol);
-            // w = 
             // maxTrials = std::log(1-p) / std::log(1-std::)
         }
         // adaptive values
@@ -245,6 +245,15 @@ void Initializer::SolveCalibratedRotationDLT() {
     }
     frame->R = frame->refFrame->R * frame->refR;
     // std::cout << "R determinant: " << cv::determinant(frame->refR) << std::endl;
+    float R[9] = {0};
+    for(size_t i = 0; i < 3; ++i)
+    {
+        for(size_t j = 0; j < 3; ++j)
+        {
+            R[i * 3 + j] = frame->R.at<float>(i, j);
+        }
+    }
+    ceres::RotationMatrixToAngleAxis(R, frame->angleAxis);
 }
 
 void Initializer::InitializeScenePoints(std::map<int, Point *> &scenePoints) {
