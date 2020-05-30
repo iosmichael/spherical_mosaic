@@ -37,6 +37,11 @@ Utility:
     - Normalize()
     - Homogenize()
     - Dehomogenize()
+    -MosaicLimits()
+    -SphericalWarp()
+    -ComputeSphericalWarpMappings()
+    -WarpLocal()
+    -PanoramaSphericalWarp()
 
 Map:
     - scenePoints: std::vec<Point *>
