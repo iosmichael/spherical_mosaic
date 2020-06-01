@@ -1,0 +1,1131 @@
+Calibration Matrix: [513.39197, 0, 357.68402;
+ 0, 513.862, 551.12799;
+ 0, 0, 1]
+loading frame: 0
+Frame status: ID 0
+        isFirst: 1
+        isInitialize: 0
+        numOfKeyPoints: 0
+        numOfMatchesToReferenceFrame: 0
+        imageSize: (w: 729, h:1094)
+add frame (0) to the graph
+final cost for RANSAC rotation: 78.8898
+85 of points created
+0 of points updated
+loading frame: 1
+Frame status: ID 1
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 710
+        numOfMatchesToReferenceFrame: 89
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 193.032
+82 of points created
+48 of points updated
+loading frame: 1
+Frame status: ID 1
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 659
+        numOfMatchesToReferenceFrame: 136
+        imageSize: (w: 729, h:1094)
+add frame (1) to the graph
+final cost for RANSAC rotation: 109.846
+55 of points created
+46 of points updated
+loading frame: 2
+Frame status: ID 2
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 604
+        numOfMatchesToReferenceFrame: 105
+        imageSize: (w: 729, h:1094)
+add frame (2) to the graph
+final cost for RANSAC rotation: 189.849
+133 of points created
+59 of points updated
+loading frame: 3
+Frame status: ID 3
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 622
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (3) to the graph
+final cost for RANSAC rotation: 216.834
+93 of points created
+101 of points updated
+loading frame: 4
+Frame status: ID 4
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 527
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (4) to the graph
+final cost for RANSAC rotation: 129.186
+36 of points created
+67 of points updated
+loading frame: 5
+Frame status: ID 5
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 480
+        numOfMatchesToReferenceFrame: 111
+        imageSize: (w: 729, h:1094)
+add frame (5) to the graph
+final cost for RANSAC rotation: 101.969
+57 of points created
+48 of points updated
+loading frame: 6
+Frame status: ID 6
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 504
+        numOfMatchesToReferenceFrame: 107
+        imageSize: (w: 729, h:1094)
+add frame (6) to the graph
+final cost for RANSAC rotation: 106.6
+44 of points created
+32 of points updated
+loading frame: 7
+Frame status: ID 7
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 481
+        numOfMatchesToReferenceFrame: 80
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 218.406
+45 of points created
+79 of points updated
+loading frame: 7
+Frame status: ID 7
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 440
+        numOfMatchesToReferenceFrame: 131
+        imageSize: (w: 729, h:1094)
+add frame (7) to the graph
+final cost for RANSAC rotation: 230.668
+129 of points created
+63 of points updated
+loading frame: 8
+Frame status: ID 8
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 428
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (8) to the graph
+final cost for RANSAC rotation: 222.309
+73 of points created
+91 of points updated
+loading frame: 9
+Frame status: ID 9
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 433
+        numOfMatchesToReferenceFrame: 173
+        imageSize: (w: 729, h:1094)
+add frame (9) to the graph
+final cost for RANSAC rotation: 216.501
+50 of points created
+59 of points updated
+loading frame: 10
+Frame status: ID 10
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 396
+        numOfMatchesToReferenceFrame: 130
+        imageSize: (w: 729, h:1094)
+add frame (10) to the graph
+final cost for RANSAC rotation: 119.094
+53 of points created
+42 of points updated
+loading frame: 11
+Frame status: ID 11
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 374
+        numOfMatchesToReferenceFrame: 105
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 171.924
+27 of points created
+67 of points updated
+loading frame: 11
+Frame status: ID 11
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 341
+        numOfMatchesToReferenceFrame: 109
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 116.259
+11 of points created
+69 of points updated
+loading frame: 11
+Frame status: ID 11
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 333
+        numOfMatchesToReferenceFrame: 86
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 455.568
+37 of points created
+103 of points updated
+loading frame: 11
+Frame status: ID 11
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 359
+        numOfMatchesToReferenceFrame: 179
+        imageSize: (w: 729, h:1094)
+add frame (11) to the graph
+final cost for RANSAC rotation: 148.298
+52 of points created
+57 of points updated
+loading frame: 12
+Frame status: ID 12
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 345
+        numOfMatchesToReferenceFrame: 117
+        imageSize: (w: 729, h:1094)
+add frame (12) to the graph
+final cost for RANSAC rotation: 138.115
+84 of points created
+56 of points updated
+loading frame: 13
+Frame status: ID 13
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 398
+        numOfMatchesToReferenceFrame: 144
+        imageSize: (w: 729, h:1094)
+add frame (13) to the graph
+final cost for RANSAC rotation: 143.109
+65 of points created
+65 of points updated
+loading frame: 14
+Frame status: ID 14
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 455
+        numOfMatchesToReferenceFrame: 133
+        imageSize: (w: 729, h:1094)
+add frame (14) to the graph
+final cost for RANSAC rotation: 105.737
+63 of points created
+47 of points updated
+loading frame: 15
+Frame status: ID 15
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 547
+        numOfMatchesToReferenceFrame: 112
+        imageSize: (w: 729, h:1094)
+add frame (15) to the graph
+final cost for RANSAC rotation: 170.976
+124 of points created
+60 of points updated
+loading frame: 16
+Frame status: ID 16
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 523
+        numOfMatchesToReferenceFrame: 187
+        imageSize: (w: 729, h:1094)
+add frame (16) to the graph
+final cost for RANSAC rotation: 120.335
+81 of points created
+84 of points updated
+loading frame: 17
+Frame status: ID 17
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 465
+        numOfMatchesToReferenceFrame: 169
+        imageSize: (w: 729, h:1094)
+add frame (17) to the graph
+final cost for RANSAC rotation: 130.506
+85 of points created
+84 of points updated
+loading frame: 18
+Frame status: ID 18
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 452
+        numOfMatchesToReferenceFrame: 174
+        imageSize: (w: 729, h:1094)
+add frame (18) to the graph
+final cost for RANSAC rotation: 143.583
+73 of points created
+98 of points updated
+loading frame: 19
+Frame status: ID 19
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 532
+        numOfMatchesToReferenceFrame: 175
+        imageSize: (w: 729, h:1094)
+add frame (19) to the graph
+final cost for RANSAC rotation: 129.328
+71 of points created
+78 of points updated
+loading frame: 20
+Frame status: ID 20
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 581
+        numOfMatchesToReferenceFrame: 158
+        imageSize: (w: 729, h:1094)
+add frame (20) to the graph
+final cost for RANSAC rotation: 141.598
+121 of points created
+71 of points updated
+loading frame: 21
+Frame status: ID 21
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 574
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (21) to the graph
+final cost for RANSAC rotation: 134.435
+104 of points created
+91 of points updated
+loading frame: 22
+Frame status: ID 22
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 573
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (22) to the graph
+final cost for RANSAC rotation: 131.352
+81 of points created
+101 of points updated
+loading frame: 23
+Frame status: ID 23
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 607
+        numOfMatchesToReferenceFrame: 186
+        imageSize: (w: 729, h:1094)
+add frame (23) to the graph
+final cost for RANSAC rotation: 145.058
+89 of points created
+89 of points updated
+loading frame: 24
+Frame status: ID 24
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 638
+        numOfMatchesToReferenceFrame: 182
+        imageSize: (w: 729, h:1094)
+add frame (24) to the graph
+final cost for RANSAC rotation: 177.595
+109 of points created
+82 of points updated
+loading frame: 25
+Frame status: ID 25
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 712
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (25) to the graph
+final cost for RANSAC rotation: 147.758
+101 of points created
+84 of points updated
+loading frame: 26
+Frame status: ID 26
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 819
+        numOfMatchesToReferenceFrame: 190
+        imageSize: (w: 729, h:1094)
+add frame (26) to the graph
+final cost for RANSAC rotation: 110.192
+58 of points created
+53 of points updated
+loading frame: 27
+Frame status: ID 27
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 729
+        numOfMatchesToReferenceFrame: 117
+        imageSize: (w: 729, h:1094)
+add frame (27) to the graph
+final cost for RANSAC rotation: 111.44
+92 of points created
+43 of points updated
+loading frame: 28
+Frame status: ID 28
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 680
+        numOfMatchesToReferenceFrame: 137
+        imageSize: (w: 729, h:1094)
+add frame (28) to the graph
+final cost for RANSAC rotation: 169.417
+128 of points created
+70 of points updated
+loading frame: 29
+Frame status: ID 29
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 716
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (29) to the graph
+final cost for RANSAC rotation: 152.083
+92 of points created
+75 of points updated
+loading frame: 30
+Frame status: ID 30
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 785
+        numOfMatchesToReferenceFrame: 169
+        imageSize: (w: 729, h:1094)
+add frame (30) to the graph
+final cost for RANSAC rotation: 175.357
+128 of points created
+72 of points updated
+loading frame: 31
+Frame status: ID 31
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 794
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (31) to the graph
+final cost for RANSAC rotation: 160.236
+116 of points created
+83 of points updated
+loading frame: 32
+Frame status: ID 32
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 856
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (32) to the graph
+final cost for RANSAC rotation: 171.54
+110 of points created
+85 of points updated
+loading frame: 33
+Frame status: ID 33
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 739
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (33) to the graph
+final cost for RANSAC rotation: 82.0755
+54 of points created
+63 of points updated
+loading frame: 34
+Frame status: ID 34
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 646
+        numOfMatchesToReferenceFrame: 119
+        imageSize: (w: 729, h:1094)
+add frame (34) to the graph
+final cost for RANSAC rotation: 142.216
+132 of points created
+66 of points updated
+loading frame: 35
+Frame status: ID 35
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 609
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (35) to the graph
+final cost for RANSAC rotation: 107.862
+69 of points created
+74 of points updated
+loading frame: 36
+Frame status: ID 36
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 712
+        numOfMatchesToReferenceFrame: 144
+        imageSize: (w: 729, h:1094)
+add frame (36) to the graph
+final cost for RANSAC rotation: 169.072
+115 of points created
+74 of points updated
+loading frame: 37
+Frame status: ID 37
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 775
+        numOfMatchesToReferenceFrame: 192
+        imageSize: (w: 729, h:1094)
+add frame (37) to the graph
+final cost for RANSAC rotation: 165.426
+109 of points created
+90 of points updated
+loading frame: 38
+Frame status: ID 38
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 915
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (38) to the graph
+final cost for RANSAC rotation: 190.497
+113 of points created
+86 of points updated
+loading frame: 39
+Frame status: ID 39
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 1008
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (39) to the graph
+final cost for RANSAC rotation: 195.559
+124 of points created
+74 of points updated
+loading frame: 40
+Frame status: ID 40
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 881
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (40) to the graph
+final cost for RANSAC rotation: 177.606
+121 of points created
+78 of points updated
+loading frame: 41
+Frame status: ID 41
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 909
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (41) to the graph
+final cost for RANSAC rotation: 159.543
+129 of points created
+71 of points updated
+loading frame: 42
+Frame status: ID 42
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 980
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (42) to the graph
+final cost for RANSAC rotation: 158.259
+130 of points created
+70 of points updated
+loading frame: 43
+Frame status: ID 43
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 907
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (43) to the graph
+final cost for RANSAC rotation: 185.585
+127 of points created
+73 of points updated
+loading frame: 44
+Frame status: ID 44
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 903
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (44) to the graph
+final cost for RANSAC rotation: 154.433
+98 of points created
+69 of points updated
+loading frame: 45
+Frame status: ID 45
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 945
+        numOfMatchesToReferenceFrame: 167
+        imageSize: (w: 729, h:1094)
+add frame (45) to the graph
+final cost for RANSAC rotation: 201.699
+139 of points created
+58 of points updated
+loading frame: 46
+Frame status: ID 46
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 1075
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (46) to the graph
+final cost for RANSAC rotation: 92.9817
+91 of points created
+52 of points updated
+loading frame: 47
+Frame status: ID 47
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 1056
+        numOfMatchesToReferenceFrame: 143
+        imageSize: (w: 729, h:1094)
+add frame (47) to the graph
+final cost for RANSAC rotation: 164.716
+138 of points created
+61 of points updated
+loading frame: 48
+Frame status: ID 48
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 1147
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (48) to the graph
+final cost for RANSAC rotation: 160.206
+137 of points created
+63 of points updated
+loading frame: 49
+Frame status: ID 49
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 1131
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (49) to the graph
+final cost for RANSAC rotation: 99.6069
+85 of points created
+61 of points updated
+loading frame: 50
+Frame status: ID 50
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 1054
+        numOfMatchesToReferenceFrame: 146
+        imageSize: (w: 729, h:1094)
+add frame (50) to the graph
+final cost for RANSAC rotation: 48.3516
+43 of points created
+23 of points updated
+loading frame: 51
+Frame status: ID 51
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 917
+        numOfMatchesToReferenceFrame: 66
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 301.71
+117 of points created
+82 of points updated
+loading frame: 51
+Frame status: ID 51
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 778
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (51) to the graph
+final cost for RANSAC rotation: 82.817
+54 of points created
+38 of points updated
+loading frame: 52
+Frame status: ID 52
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 704
+        numOfMatchesToReferenceFrame: 93
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 316.026
+82 of points created
+114 of points updated
+loading frame: 52
+Frame status: ID 52
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 678
+        numOfMatchesToReferenceFrame: 198
+        imageSize: (w: 729, h:1094)
+add frame (52) to the graph
+final cost for RANSAC rotation: 85.7323
+36 of points created
+50 of points updated
+loading frame: 53
+Frame status: ID 53
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 545
+        numOfMatchesToReferenceFrame: 87
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 283.771
+75 of points created
+112 of points updated
+loading frame: 53
+Frame status: ID 53
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 475
+        numOfMatchesToReferenceFrame: 200
+        imageSize: (w: 729, h:1094)
+add frame (53) to the graph
+final cost for RANSAC rotation: 94.9429
+48 of points created
+61 of points updated
+loading frame: 54
+Frame status: ID 54
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 481
+        numOfMatchesToReferenceFrame: 111
+        imageSize: (w: 729, h:1094)
+add frame (54) to the graph
+final cost for RANSAC rotation: 30.8594
+16 of points created
+22 of points updated
+loading frame: 55
+Frame status: ID 55
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 559
+        numOfMatchesToReferenceFrame: 38
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 393.286
+100 of points created
+74 of points updated
+loading frame: 55
+Frame status: ID 55
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 682
+        numOfMatchesToReferenceFrame: 188
+        imageSize: (w: 729, h:1094)
+add frame (55) to the graph
+final cost for RANSAC rotation: 277.006
+118 of points created
+63 of points updated
+loading frame: 56
+Frame status: ID 56
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 756
+        numOfMatchesToReferenceFrame: 194
+        imageSize: (w: 729, h:1094)
+add frame (56) to the graph
+final cost for RANSAC rotation: 233.713
+83 of points created
+52 of points updated
+loading frame: 57
+Frame status: ID 57
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 729
+        numOfMatchesToReferenceFrame: 152
+        imageSize: (w: 729, h:1094)
+add frame (57) to the graph
+final cost for RANSAC rotation: 72.5442
+58 of points created
+27 of points updated
+loading frame: 58
+Frame status: ID 58
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 697
+        numOfMatchesToReferenceFrame: 87
+        imageSize: (w: 729, h:1094)
+loading frame: 58
+Frame status: ID 58
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 697
+        numOfMatchesToReferenceFrame: 87
+        imageSize: (w: 729, h:1094)
+final cost for RANSAC rotation: 151.445
+39 of points created
+45 of points updated
+loading frame: 58
+Frame status: ID 58
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 541
+        numOfMatchesToReferenceFrame: 133
+        imageSize: (w: 729, h:1094)
+add frame (58) to the graph
+final cost for RANSAC rotation: 95.8179
+68 of points created
+36 of points updated
+loading frame: 59
+Frame status: ID 59
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 585
+        numOfMatchesToReferenceFrame: 107
+        imageSize: (w: 729, h:1094)
+add frame (59) to the graph
+final cost for RANSAC rotation: 98.6849
+74 of points created
+30 of points updated
+loading frame: 60
+Frame status: ID 60
+        isFirst: 0
+        isInitialize: 1
+        numOfKeyPoints: 617
+        numOfMatchesToReferenceFrame: 108
+        imageSize: (w: 729, h:1094)
+add frame (60) to the graph
+rotation of frame 0: [1, 0, 0;
+ 0, 1, 0;
+ 0, 0, 1]
+rotation of frame 1: [0.9841584, -0.012643218, 0.17683947;
+ 0.012897789, 0.99991679, -0.00028978288;
+ -0.17682108, 0.0025660098, 0.98423958]
+rotation of frame 2: [0.95992225, -0.01929052, 0.27960142;
+ 0.020056337, 0.99979889, 0.00012236077;
+ -0.27954754, 0.0054902565, 0.96011615]
+rotation of frame 3: [0.93847913, -0.02361328, 0.34452713;
+ 0.024826869, 0.99969143, 0.00089001958;
+ -0.34444186, 0.0077181808, 0.93877596]
+rotation of frame 4: [0.90371954, -0.028945753, 0.4271448;
+ 0.030857969, 0.99952072, 0.0024464908;
+ -0.42701092, 0.01096986, 0.90417993]
+rotation of frame 5: [0.86242533, -0.034355272, 0.50501657;
+ 0.037005328, 0.99930352, 0.0047861189;
+ -0.50482929, 0.01456062, 0.8630963]
+rotation of frame 6: [0.81270629, -0.039248325, 0.58134967;
+ 0.042897046, 0.99905139, 0.0074799187;
+ -0.58109188, 0.018859193, 0.81361926]
+rotation of frame 7: [0.69810665, -0.047600407, 0.71440935;
+ 0.053475358, 0.99846697, 0.01427193;
+ -0.71399367, 0.028240014, 0.6995821]
+rotation of frame 8: [0.63166267, -0.05130155, 0.77354372;
+ 0.058652591, 0.99811047, 0.018300204;
+ -0.77302116, 0.033810854, 0.63347828]
+rotation of frame 9: [0.55895692, -0.05469811, 0.82739043;
+ 0.063255101, 0.99772686, 0.023225922;
+ -0.82678032, 0.039354533, 0.56114644]
+rotation of frame 10: [0.48314333, -0.05721359, 0.87366968;
+ 0.066743396, 0.99736559, 0.028404625;
+ -0.87299347, 0.044588305, 0.48568928]
+rotation of frame 11: [0.16166332, -0.061834615, 0.98490673;
+ 0.076400384, 0.99582368, 0.049979635;
+ -0.98388422, 0.067167506, 0.1657123]
+rotation of frame 12: [0.075695723, -0.061536901, 0.9952302;
+ 0.07794401, 0.9954049, 0.0556194;
+ -0.99408001, 0.073362209, 0.080144234]
+rotation of frame 13: [-0.013743147, -0.060792871, 0.99805576;
+ 0.078650579, 0.99499166, 0.061689232;
+ -0.99680769, 0.079345621, -0.0088930503]
+rotation of frame 14: [-0.10019586, -0.059517041, 0.99318588;
+ 0.079690866, 0.99452209, 0.067636594;
+ -0.99177134, 0.085924938, -0.094904214]
+rotation of frame 15: [-0.18609244, -0.057666264, 0.98083836;
+ 0.080102518, 0.99406242, 0.073641442;
+ -0.97926164, 0.092271939, -0.18036851]
+rotation of frame 16: [-0.2711364, -0.055556744, 0.96093613;
+ 0.079583541, 0.99362063, 0.079901583;
+ -0.95924532, 0.098139092, -0.26498559]
+rotation of frame 17: [-0.35379544, -0.053064272, 0.93381625;
+ 0.078431487, 0.99318981, 0.086153589;
+ -0.93202859, 0.10372155, -0.34722441]
+rotation of frame 18: [-0.43361157, -0.05002192, 0.89971024;
+ 0.076788545, 0.99277467, 0.092204057;
+ -0.89782202, 0.10906839, -0.42663786]
+rotation of frame 19: [-0.51183921, -0.046240505, 0.85783565;
+ 0.074665405, 0.9923771, 0.098042898;
+ -0.85583043, 0.11423303, -0.50448531]
+rotation of frame 20: [-0.58402872, -0.042242721, 0.81063277;
+ 0.072333075, 0.99196374, 0.10380507;
+ -0.80850375, 0.11926082, -0.57628024]
+rotation of frame 21: [-0.65259492, -0.037577838, 0.75677431;
+ 0.069543749, 0.99158311, 0.10920747;
+ -0.75450873, 0.12389727, -0.64448929]
+rotation of frame 22: [-0.71623194, -0.032618951, 0.69709927;
+ 0.066216767, 0.99122345, 0.11441592;
+ -0.69471353, 0.12810808, -0.70778656]
+rotation of frame 23: [-0.77493364, -0.027461762, 0.63144541;
+ 0.062127028, 0.99090761, 0.11933956;
+ -0.62898159, 0.13171014, -0.76618207]
+rotation of frame 24: [-0.82759368, -0.021925906, 0.56089866;
+ 0.057659607, 0.99063051, 0.12379991;
+ -0.55835789, 0.13479732, -0.8185758]
+rotation of frame 25: [-0.87356526, -0.016052218, 0.4864414;
+ 0.053046044, 0.99036187, 0.12794261;
+ -0.48380697, 0.1375701, -0.86429465]
+rotation of frame 26: [-0.91238713, -0.010129257, 0.40920201;
+ 0.047982998, 0.99015468, 0.13149612;
+ -0.40650547, 0.13961023, -0.9029187]
+rotation of frame 27: [-0.94475782, -0.0042342925, 0.3277404;
+ 0.042327601, 0.98996758, 0.13480511;
+ -0.32502335, 0.14123079, -0.93510091]
+rotation of frame 28: [-0.96957988, 0.0015753488, 0.24476755;
+ 0.036277734, 0.98986024, 0.13733307;
+ -0.24206945, 0.14203513, -0.95980638]
+rotation of frame 29: [-0.98725194, 0.0078619495, 0.15896758;
+ 0.030395435, 0.98971027, 0.13981935;
+ -0.15623268, 0.14286897, -0.97733295]
+rotation of frame 30: [-0.99737269, 0.014033405, 0.07106027;
+ 0.023998197, 0.98966402, 0.14138211;
+ -0.068341784, 0.14271612, -0.98740137]
+rotation of frame 31: [-0.99968886, 0.01988552, -0.015009172;
+ 0.017546119, 0.98963732, 0.14251332;
+ 0.017687604, 0.1422058, -0.98967904]
+rotation of frame 32: [-0.99420285, 0.025976475, -0.104329;
+ 0.010817952, 0.98961812, 0.14331348;
+ 0.10696875, 0.14135422, -0.98416281]
+rotation of frame 33: [-0.98115247, 0.031452473, -0.19065413;
+ 0.0038925251, 0.98968035, 0.14323856;
+ 0.19319203, 0.13979693, -0.97115052]
+rotation of frame 34: [-0.96086168, 0.037289541, -0.27450463;
+ -0.002439918, 0.98972112, 0.14298831;
+ 0.27701524, 0.13806194, -0.95089495]
+rotation of frame 35: [-0.93333137, 0.042968731, -0.35643315;
+ -0.0086544212, 0.98983014, 0.14198858;
+ 0.3589097, 0.13560729, -0.92346859]
+rotation of frame 36: [-0.89753228, 0.048296954, -0.43829429;
+ -0.015264848, 0.98998415, 0.14034912;
+ 0.44068331, 0.13265853, -0.88780618]
+rotation of frame 37: [-0.85505551, 0.05310294, -0.515809;
+ -0.02174589, 0.99019462, 0.13799007;
+ 0.51807952, 0.12920606, -0.84551722]
+rotation of frame 38: [-0.80596012, 0.057285052, -0.58919054;
+ -0.028230775, 0.99045461, 0.13491635;
+ 0.59129584, 0.12537068, -0.79665011]
+rotation of frame 39: [-0.75050265, 0.061298862, -0.65801746;
+ -0.034353588, 0.99072379, 0.1314753;
+ 0.6599735, 0.121278, -0.74143541]
+rotation of frame 40: [-0.68953657, 0.064549141, -0.72136778;
+ -0.040484548, 0.99102747, 0.12737727;
+ 0.72311819, 0.11703564, -0.68073678]
+rotation of frame 41: [-0.62360018, 0.067500092, -0.77882296;
+ -0.04636525, 0.99131745, 0.1230419;
+ 0.78036696, 0.11283953, -0.61505646]
+rotation of frame 42: [-0.5539223, 0.069860995, -0.82963145;
+ -0.051965151, 0.99162894, 0.11819871;
+ 0.83094484, 0.10858513, -0.54565537]
+rotation of frame 43: [-0.48119941, 0.071688019, -0.87367439;
+ -0.057433363, 0.99193037, 0.11302501;
+ 0.87472755, 0.10456606, -0.47319931]
+rotation of frame 44: [-0.40138873, 0.073019713, -0.91299182;
+ -0.06281466, 0.9922747, 0.10697731;
+ 0.91375124, 0.10028923, -0.39370134]
+rotation of frame 45: [-0.318995, 0.073944956, -0.94486678;
+ -0.067506745, 0.9926461, 0.10047577;
+ 0.9453491, 0.095836639, -0.31165749]
+rotation of frame 46: [-0.23551127, 0.074592613, -0.96900427;
+ -0.071332619, 0.99303359, 0.09378013;
+ 0.9692502, 0.091208361, -0.22854978]
+rotation of frame 47: [-0.15103984, 0.074749619, -0.98569697;
+ -0.074108563, 0.99347395, 0.086695939;
+ 0.98574579, 0.086143553, -0.1445145]
+rotation of frame 48: [-0.066364393, 0.074378103, -0.99501896;
+ -0.076405451, 0.99391049, 0.079391956;
+ 0.99486578, 0.081294008, -0.060277171]
+rotation of frame 49: [0.0252074, 0.07342162, -0.99698192;
+ -0.077545233, 0.99443722, 0.071274333;
+ 0.99667007, 0.075514816, 0.030760989]
+rotation of frame 50: [0.11149095, 0.072200678, -0.99113864;
+ -0.07732863, 0.99496281, 0.063781291;
+ 0.99075222, 0.069532655, 0.11651303]
+rotation of frame 51: [0.28494382, 0.068134367, -0.95611912;
+ -0.074440807, 0.99603039, 0.048794158;
+ 0.95564902, 0.057270888, 0.28888535]
+rotation of frame 52: [0.44763511, 0.062078126, -0.89205849;
+ -0.069378525, 0.99699068, 0.034566872;
+ 0.8915205, 0.046416596, 0.45059577]
+rotation of frame 53: [0.59535044, 0.054318272, -0.80162746;
+ -0.062473707, 0.99782044, 0.021215308;
+ 0.8010332, 0.037450321, 0.59744722]
+rotation of frame 54: [0.66596884, 0.049650069, -0.74432486;
+ -0.057800781, 0.99821675, 0.01487074;
+ 0.74373627, 0.033119306, 0.66765207]
+rotation of frame 55: [0.78589851, 0.040319286, -0.61703885;
+ -0.048092753, 0.99883425, 0.0040143933;
+ 0.61648172, 0.026520262, 0.78692228]
+rotation of frame 56: [0.83702213, 0.03508852, -0.5460422;
+ -0.042368431, 0.99910116, -0.00074273394;
+ 0.54552561, 0.02375672, 0.83775735]
+rotation of frame 57: [0.88271159, 0.029470086, -0.46898949;
+ -0.036046281, 0.99933666, -0.0050475206;
+ 0.46852988, 0.021360965, 0.88318944]
+rotation of frame 58: [0.97390866, 0.011824798, -0.22663072;
+ -0.015264955, 0.9997927, -0.013430015;
+ 0.22642489, 0.016539259, 0.97388822]
+rotation of frame 59: [0.9899435, 0.0056660655, -0.14134817;
+ -0.0078813918, 0.99985409, -0.015113439;
+ 0.14124182, 0.016075626, 0.98984462]
+rotation of frame 60: [0.99854922, -0.0006718635, -0.053839304;
+ -0.00020385918, 0.99986744, -0.016246334;
+ 0.053842902, 0.016233889, 0.99841756]
+iter      cost      cost_change  |gradient|   |step|    tr_ratio  tr_radius  ls_iter  iter_time  total_time
+   0  7.257846e+03    0.00e+00    4.10e+04   0.00e+00   0.00e+00  1.00e+04        0    6.52e-01    6.81e-01
+   1  6.879847e+03    3.78e+02    1.18e+02   2.52e-01   1.00e+00  3.00e+04        1    7.45e-01    1.43e+00
+   2  6.879630e+03    2.17e-01    3.59e+00   3.44e-02   1.00e+00  9.00e+04        1    6.48e-01    2.07e+00
+
+Solver Summary (v 2.0.0-eigen-(3.3.4)-lapack-suitesparse-(5.1.2)-cxsparse-(3.1.9)-eigensparse-no_openmp)
+
+                                     Original                  Reduced
+Parameter blocks                         6080                     6080
+Parameters                              18240                    18240
+Residual blocks                         16701                    16701
+Residuals                               33402                    33402
+
+Minimizer                        TRUST_REGION
+
+Sparse linear algebra library    SUITE_SPARSE
+Trust region strategy     LEVENBERG_MARQUARDT
+
+                                        Given                     Used
+Linear solver                    SPARSE_SCHUR             SPARSE_SCHUR
+Threads                                     1                        1
+Linear solver ordering              AUTOMATIC                  6008,72
+Schur structure                         2,3,3                    2,3,3
+
+Cost:
+Initial                          7.257846e+03
+Final                            6.879630e+03
+Change                           3.782157e+02
+
+Minimizer iterations                        3
+Successful steps                            3
+Unsuccessful steps                          0
+
+Time (in seconds):
+Preprocessor                         0.028940
+
+  Residual only evaluation           0.014849 (3)
+  Jacobian & residual evaluation     2.002816 (3)
+  Linear solver                      0.024468 (3)
+Minimizer                            2.058788
+
+Postprocessor                        0.001195
+Total                                2.088923
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 9.642726e-08 <= 1.000000e-06)
+
+after bundle adjustment (sse): 
+angle axis previous: 0, 0, 0
+angle axis current: -0.00289527, -0.00178492, 0.00191136
+angle axis previous: -0.00143548, -0.17777, -0.0128384
+angle axis current: -0.00459522, -0.179702, -0.0109165
+angle axis previous: -0.00272039, -0.283371, -0.0199406
+angle axis current: -0.00583166, -0.28466, -0.0180802
+angle axis previous: -0.00348587, -0.351728, -0.0247294
+angle axis current: -0.00659113, -0.352785, -0.0229101
+angle axis previous: -0.00440397, -0.441336, -0.0309002
+angle axis current: -0.00749343, -0.442305, -0.0291557
+angle axis previous: -0.0051245, -0.529434, -0.0374124
+angle axis current: -0.00801743, -0.529943, -0.0360311
+angle axis previous: -0.00607383, -0.620468, -0.0438461
+angle axis current: -0.00864432, -0.620903, -0.0426765
+angle axis previous: -0.0077845, -0.796058, -0.0563302
+angle axis current: -0.0100372, -0.796748, -0.0559645
+angle axis previous: -0.00887444, -0.88487, -0.0629104
+angle axis current: -0.0110034, -0.885394, -0.0629146
+angle axis previous: -0.00950843, -0.975197, -0.0695379
+angle axis current: -0.0116631, -0.975758, -0.0696682
+angle axis previous: -0.0098574, -1.06388, -0.0755016
+angle axis current: -0.0114214, -1.06408, -0.0757458
+angle axis previous: -0.0122656, -1.40497, -0.0986475
+angle axis current: -0.0135276, -1.40526, -0.0989211
+angle axis previous: -0.0133017, -1.49138, -0.104568
+angle axis current: -0.0145127, -1.49195, -0.10424
+angle axis previous: -0.0139907, -1.5807, -0.110493
+angle axis current: -0.0149586, -1.58155, -0.110054
+angle axis previous: -0.0153597, -1.66709, -0.116915
+angle axis current: -0.0159844, -1.66806, -0.116359
+angle axis previous: -0.0166685, -1.75368, -0.12326
+angle axis current: -0.017283, -1.75435, -0.122857
+angle axis previous: -0.0174841, -1.84085, -0.129557
+angle axis current: -0.0179127, -1.84132, -0.129142
+angle axis previous: -0.0181502, -1.92768, -0.135854
+angle axis current: -0.0185609, -1.92782, -0.135347
+angle axis previous: -0.0188984, -2.01434, -0.142105
+angle axis current: -0.0191783, -2.01441, -0.141497
+angle axis previous: -0.0198678, -2.10296, -0.148372
+angle axis current: -0.0199643, -2.10317, -0.147661
+angle axis previous: -0.0208961, -2.18908, -0.154907
+angle axis current: -0.0205445, -2.18946, -0.153981
+angle axis previous: -0.0221246, -2.27619, -0.161339
+angle axis current: -0.0216132, -2.27663, -0.160368
+angle axis previous: -0.0232498, -2.36336, -0.167827
+angle axis current: -0.022742, -2.36381, -0.166715
+angle axis previous: -0.0240592, -2.45137, -0.174239
+angle axis current: -0.0234937, -2.45178, -0.172966
+angle axis previous: -0.0249509, -2.53938, -0.180565
+angle axis current: -0.0243718, -2.53988, -0.17919
+angle axis previous: -0.0260655, -2.62687, -0.187078
+angle axis current: -0.0254717, -2.62747, -0.185636
+angle axis previous: -0.02699, -2.71333, -0.193301
+angle axis current: -0.0264883, -2.71392, -0.191779
+angle axis previous: -0.0275719, -2.80097, -0.199794
+angle axis current: -0.0272933, -2.80121, -0.198114
+angle axis previous: -0.0278891, -2.88759, -0.205831
+angle axis current: -0.027805, -2.8877, -0.204065
+angle axis previous: -0.0287846, -2.97519, -0.212693
+angle axis current: -0.0287361, -2.97508, -0.211042
+angle axis previous: -0.0293167, -3.0637, -0.218997
+angle axis current: -0.0293157, -3.06346, -0.217273
+angle axis previous: 0.0293234, 3.11709, 0.223045
+angle axis current: 0.0291511, 3.11759, 0.221297
+angle axis previous: 0.028074, 3.02756, 0.2172
+angle axis current: 0.0277759, 3.02814, 0.215576
+angle axis previous: 0.0263634, 2.94027, 0.211112
+angle axis current: 0.0258754, 2.94078, 0.209734
+angle axis previous: 0.0254927, 2.85395, 0.20559
+angle axis current: 0.0254123, 2.85473, 0.20447
+angle axis previous: 0.0246878, 2.7675, 0.199719
+angle axis current: 0.0252472, 2.76833, 0.199011
+angle axis previous: 0.0234326, 2.67817, 0.193669
+angle axis current: 0.0241592, 2.67897, 0.193139
+angle axis previous: 0.0220035, 2.58984, 0.187494
+angle axis current: 0.0226543, 2.59052, 0.186976
+angle axis previous: 0.0202289, 2.50165, 0.181224
+angle axis current: 0.020764, 2.50232, 0.180764
+angle axis previous: 0.0186721, 2.41336, 0.175149
+angle axis current: 0.018786, 2.41397, 0.174829
+angle axis previous: 0.0166494, 2.32557, 0.169101
+angle axis current: 0.0162109, 2.3263, 0.168854
+angle axis previous: 0.0146454, 2.23822, 0.163454
+angle axis current: 0.0137868, 2.23883, 0.163048
+angle axis previous: 0.0124591, 2.15211, 0.157888
+angle axis current: 0.0111353, 2.1526, 0.1573
+angle axis previous: 0.0100013, 2.0672, 0.152665
+angle axis current: 0.00833098, 2.06759, 0.151798
+angle axis previous: 0.00724323, 1.97837, 0.147109
+angle axis current: 0.00540748, 1.97847, 0.14587
+angle axis previous: 0.00463905, 1.89018, 0.141449
+angle axis current: 0.00310708, 1.88986, 0.139934
+angle axis previous: 0.00239289, 1.80344, 0.135775
+angle axis current: 0.00123174, 1.80289, 0.134165
+angle axis previous: 0.000481241, 1.71753, 0.129686
+angle axis current: -0.000656753, 1.71733, 0.128226
+angle axis previous: -0.00156047, 1.63253, 0.123705
+angle axis current: -0.00290414, 1.63222, 0.122275
+angle axis previous: -0.00327807, 1.54117, 0.116704
+angle axis current: -0.00428387, 1.5409, 0.115332
+angle axis previous: -0.00422217, 1.45494, 0.109772
+angle axis current: -0.00458842, 1.45456, 0.108364
+angle axis previous: -0.00566795, 1.2783, 0.0953326
+angle axis current: -0.00587826, 1.27812, 0.0942503
+angle axis previous: -0.00733266, 1.10369, 0.0813459
+angle axis current: -0.00764263, 1.1038, 0.0807018
+angle axis previous: -0.00942732, 0.93063, 0.0678186
+angle axis current: -0.0096577, 0.931184, 0.0675892
+angle axis previous: -0.010299, 0.839821, 0.0606423
+angle axis current: -0.0102518, 0.840306, 0.0606624
+angle axis previous: -0.0121321, 0.664946, 0.0476597
+angle axis current: -0.0118939, 0.66548, 0.0477939
+angle axis previous: -0.0129622, 0.57753, 0.0409811
+angle axis current: -0.012777, 0.578135, 0.0410401
+angle axis previous: -0.0137464, 0.488008, 0.0341033
+angle axis current: -0.0135941, 0.48862, 0.0343297
+angle axis previous: -0.0151169, 0.228528, 0.0136644
+angle axis current: -0.0151312, 0.229288, 0.0145413
+angle axis previous: -0.0156477, 0.141776, 0.00679681
+angle axis current: -0.0156812, 0.142427, 0.00777051
+angle axis previous: -0.0162487, 0.0538695, -0.000234126
+angle axis current: -0.0161745, 0.0545192, 0.000611823
+total difference is: 0.0988294

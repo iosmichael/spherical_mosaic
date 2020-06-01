@@ -95,17 +95,20 @@ void testGraph(std::vector<std::string> &img_path) {
 
         graph.AddFrame(undistortImg);
         countId += 1;
-        if (countId >= 15) break;
+        // if (countId >= 15) break;
     }
 
     for (auto f : graph.frames) {
-        // f->visualize();
+        // if (!f->isFirst) f->visualize();
         std::cout << "rotation of frame " << f->frameId << ": " << f->R << std::endl;
     }
 
     graph.Optimize();
-    MosaicCamera mosaic {1.5708,2000,2000,cv::Mat::eye(cv::Size(3,3), CV_32F)};
-    mosaic.Visualize(cv::Mat::eye(cv::Size(3,3), CV_32F), graph.frames);
+
+    // MosaicCamera mosaic {1.5708,2000,2000,cv::Mat::eye(cv::Size(3,3), CV_32F)};
+    // for (auto pitch : {0, 90, 180, 270}) {
+    //     mosaic.Visualize(Utility::PitchToRotation(pitch), graph.frames);
+    // }
 }
 
 void testSphericalMapping(std::vector<std::string> &img_path) {

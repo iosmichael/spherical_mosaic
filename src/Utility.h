@@ -39,10 +39,19 @@ namespace Utility
         return normalized;
     }
 
+    inline cv::Mat PitchToRotation(float pitch) {
+        using namespace std;
+        cv::Mat R = cv::Mat::eye(cv::Size(3,3), CV_32F);
+        R.at<float>(0,0) = cos(pitch); R.at<float>(0,2) = -sin(pitch);
+        R.at<float>(2,0) = sin(pitch); R.at<float>(2,2) = cos(pitch);
+        return R;
+    }
+
     // min_x, min_y, max_x, max_y
     inline std::vector<float> MosaicLimits(cv::Mat &R, cv::Mat &K, cv::Size size) {
         cv::Mat H = K * R * K.inv();
         cv::Mat origin = cv::Mat::zeros(3,1,CV_32F), bottomRight = (cv::Mat_<float>(3,1) << size.width, size.height, 1);
+        origin.at<float>(2,0) = 1;
         origin = Dehomogenize(H * origin), bottomRight = Dehomogenize(H * bottomRight);
         std::vector<float> limits;
         float xMin = origin.at<float>(0,0), yMin = origin.at<float>(1,0);

@@ -35,7 +35,7 @@ void Utility::WarpLocal(cv::Mat &src, std::pair<cv::Mat, cv::Mat> &xyMap, cv::Ma
     cv::inRange(xyMap.first, 0, width-1, mask);
 
     cv::Mat warpImg;
-    cv::remap(src, warpImg, xyMap.first, xyMap.second, cv::INTER_LINEAR, cv::BORDER_TRANSPARENT);
+    cv::remap(src, warpImg, xyMap.first, xyMap.second, cv::INTER_LINEAR, cv::BORDER_CONSTANT);
     cv::bitwise_and(warpImg, warpImg, dst, mask);
 }
 

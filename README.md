@@ -52,11 +52,52 @@ cd <path-directory-to-eigen3>
 sudo ln -sf eigen3/Eigen Eigen
 ```
 
-## Directly Converting cv::Mat to Eigen::Matrix
+## Screenshots of the Performance
 
-```c++
-cv::Mat cvMatrix(4,4,CV_32FC1); //directly use the buffer allocated by OpenCV 
-Eigen::Map<Matrix4f> eigenMatrix( cvMatrix.data() );
-#include <opencv2/core/eigen.hpp>
-cv::eigen2cv, cv::cv2eigen;
-```
+**Undistorted Image Display**
+
+![rectified image](../demo/undistort.png)
+
+**SIFT Feature Detection and KNN Matching**
+
+![SIFT feature detection and matching](../demo/featureDetectionAndMatching.png =400x)
+
+**Outlier Rejection**
+
+![before outlier rejection](../demo/featureMatchWithoutOutlier.png =400x)
+
+![after outlier rejection](../demo/featureMatchingWithOutlier.png =400x)
+
+**Reprojection Error Visualization**
+
+![reprojection](../demo/reprojectionError.png)
+
+**Bundle Adjustment**
+
+                             |        Original       |           Reduced
+Parameter blocks              |           6080         |            6080
+Parameters                     |         18240          |          18240
+Residual blocks                 |        16701           |         16701
+Residuals                        |       33402            |        33402
+
+
+iter    |  cost   |   cost_change | \|gradient\| |  \|step\|  |  tr_ratio | tr_radius | ls_iter | iter_time | total_time
+   0 | 7.257846e+03  |  0.00e+00  |  4.10e+04  | 0.00e+00 |  0.00e+00 | 1.00e+04  |      0  |  6.52e-01  |  6.81e-01
+   1 | 6.879847e+03  |  3.78e+02  |  |1.18e+02 | 2.52e-01 |  1.00e+00 | 3.00e+04  |    1  |  7.45e-01  |  1.43e+00
+   2 | 6.879630e+03  |  2.17e-01  |  3.59e+00  | 3.44e-02 |  1.00e+00 | 9.00e+04  |      1 |   6.48e-01 |   2.07e+00
+
+Cost:
+Initial              |            7.257846e+03
+Final                 |           6.879630e+03
+Change                 |          3.782157e+02
+
+Termination:                      CONVERGENCE (Function tolerance reached. |cost_change|/cost: 9.642726e-08 <= 1.000000e-06)
+
+Total difference SSE on Angle-Axis Representation: **0.0988294**
+
+**Spherical Mosaic Reconstruction**
+
+![mosaic0](../demo/mosaic0.png)
+![mosaic1](../demo/mosaic1.png)
+![mosaic2](../demo/mosaic2.png)
+![mosaic3](../demo/mosaic4.png)

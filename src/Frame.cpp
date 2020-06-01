@@ -13,7 +13,7 @@ Frame::~Frame() { delete angleAxis; }
 
 void Frame::visualize() {
     assert(isInitialize);
-    cv::Mat refFrameImg = refFrame->img.clone(), frameImg = img.clone();
+    cv::Mat refFrameImg = refFrame->img.clone();
 
     for( int i = 0; i < (int)matches.size(); i++ )
     {
@@ -25,18 +25,43 @@ void Frame::visualize() {
         cv::Point2f point_new = kpts[matches[i].queryIdx].pt;
 
         //keypoint color for frame 1: RED
-        cv::circle(refFrameImg, point_old, 3, cv::Scalar(0, 0, 255), 1);  
-        cv::circle(frameImg, point_old, 3, cv::Scalar(0, 0, 255), 1);  
+        cv::circle(refFrameImg, point_old, 3, cv::Scalar(0, 0, 255), 0.5);  
+        // cv::circle(frameImg, point_old, 3, cv::Scalar(0, 0, 255), 1);  
         
         //keypoint color for frame 2: BLUE
-        cv::circle(refFrameImg, point_new, 3, cv::Scalar(255, 0, 0), 1);  
-        cv::circle(frameImg, point_new, 3, cv::Scalar(255, 0, 0), 1); 
+        cv::circle(refFrameImg, point_new, 3, cv::Scalar(255, 0, 0), 0.5);  
+        // cv::circle(frameImg, point_new, 3, cv::Scalar(255, 0, 0), 1); 
 
         //draw a line between keypoints
         cv::line(refFrameImg, point_old, point_new, cv::Scalar(0, 255, 0), 2, 8, 0);
-        cv::line(frameImg, point_old, point_new, cv::Scalar(0, 255, 0), 2, 8, 0); 
+        // cv::line(frameImg, point_old, point_new, cv::Scalar(0, 255, 0), 2, 8, 0); 
     }
     cv::imshow("Reference Frame", refFrameImg);
+    cv::waitKey();
+
+    refFrameImg = refFrame->img.clone();
+    for( int i = 0; i < (int)inliers.size(); i++ )
+    {
+        int refIndex = std::get<0>(inliers[i]), currIndex = std::get<1>(inliers[i]);
+
+        //query image is the first frame
+        cv::Point2f point_old = refFrame->kpts[refIndex].pt;
+        //train  image is the next frame that we want to find matched keypoints
+        cv::Point2f point_new = kpts[currIndex].pt;
+
+        //keypoint color for frame 1: RED
+        cv::circle(refFrameImg, point_old, 3, cv::Scalar(0, 0, 255), 0.5);  
+        // cv::circle(frameImg, point_old, 3, cv::Scalar(0, 0, 255), 1);  
+        
+        //keypoint color for frame 2: BLUE
+        cv::circle(refFrameImg, point_new, 3, cv::Scalar(255, 0, 0), 0.5);  
+        // cv::circle(frameImg, point_new, 3, cv::Scalar(255, 0, 0), 1); 
+
+        //draw a line between keypoints
+        cv::line(refFrameImg, point_old, point_new, cv::Scalar(0, 255, 0), 2, 8, 0);
+        // cv::line(frameImg, point_old, point_new, cv::Scalar(0, 255, 0), 2, 8, 0); 
+    }
+    cv::imshow("Reference Frame After Outlier Rejection", refFrameImg);
     cv::waitKey();
 }
 
