@@ -56,21 +56,21 @@ sudo ln -sf eigen3/Eigen Eigen
 
 **Undistorted Image Display**
 
-![rectified image](../demo/undistort.png)
+![rectified image](demo/undistort.png =200x)
 
 **SIFT Feature Detection and KNN Matching**
 
-![SIFT feature detection and matching](../demo/featureDetectionAndMatching.png =400x)
+![SIFT feature detection and matching](demo/featureDetectionAndMatching.png)
 
 **Outlier Rejection**
 
-![before outlier rejection](../demo/featureMatchWithoutOutlier.png =400x)
+![before outlier rejection](demo/featureMatchWithoutOutlier.png)
 
-![after outlier rejection](../demo/featureMatchingWithOutlier.png =400x)
+![after outlier rejection](demo/featureMatchingWithOutlier.png)
 
 **Reprojection Error Visualization**
 
-![reprojection](../demo/reprojectionError.png)
+![reprojection](demo/reprojectionError.png)
 
 **Bundle Adjustment**
 
@@ -97,7 +97,7 @@ Total difference SSE on Angle-Axis Representation: **0.0988294**
 
 **Spherical Mosaic Reconstruction**
 
-![mosaic0](../demo/mosaic0.png)
-![mosaic1](../demo/mosaic1.png)
-![mosaic2](../demo/mosaic2.png)
-![mosaic3](../demo/mosaic4.png)
+![mosaic0](demo/mosaic0.png)
+![mosaic1](demo/mosaic1.png)
+![mosaic2](demo/mosaic2.png)
+![mosaic3](demo/mosaic4.png)
