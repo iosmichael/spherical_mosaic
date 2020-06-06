@@ -33,3 +33,6 @@
 
 build/
 dataset/
+
+notebook/.ipynb_checkpoints/
+notebook/Untitled.ipynb

@@ -28,6 +28,7 @@ void readImages(char *dirpath, std::vector<std::string> &image_path);
 
 void test();
 void testGraph(std::vector<std::string> &img_path);
+void testBlending(std::vector<std::string> &img_path);
 void testSphericalMapping(std::vector<std::string> &img_path);
 
 size_t downScale = 5;
@@ -50,7 +51,7 @@ int main(int argc, char** argv) {
     readImages(argv[1], img_path);
     std::sort(img_path.begin(), img_path.end());
     testGraph(img_path);
-
+    // testBlending(img_path);
     // testSphericalMapping(img_path);
     return 0;
 }
@@ -95,7 +96,6 @@ void testGraph(std::vector<std::string> &img_path) {
 
         graph.AddFrame(undistortImg);
         countId += 1;
-        // if (countId >= 15) break;
     }
 
     for (auto f : graph.frames) {
@@ -105,10 +105,44 @@ void testGraph(std::vector<std::string> &img_path) {
 
     graph.Optimize();
 
-    // MosaicCamera mosaic {1.5708,2000,2000,cv::Mat::eye(cv::Size(3,3), CV_32F)};
-    // for (auto pitch : {0, 90, 180, 270}) {
-    //     mosaic.Visualize(Utility::PitchToRotation(pitch), graph.frames);
-    // }
+    MosaicCamera mosaic {1.5708,2000,2000,cv::Mat::eye(cv::Size(3,3), CV_32F)};
+    for (auto pitch : {90}) {
+        mosaic.Visualize(Utility::PitchToRotation(pitch), graph.frames);
+    }
+}
+
+void testBlending(std::vector<std::string> &img_path) {
+    Graph graph = Graph();
+    
+    int countId = 0;
+
+    for (auto path : img_path) {
+        cv::Mat img = cv::imread(path, cv::IMREAD_COLOR);
+        cv::resize(img, img, cv::Size(img.cols / downScale, img.rows / downScale));
+        cv::Mat undistortImg, mappedImg;
+        
+        //undistort the image
+        cv::Mat coeffs = (cv::Mat_<float>(1,4,CV_32F) << -0.0484573, 0.0100024, 0.00050623, 0.000603611);
+        cv::InputArray distortCoeffs = cv::InputArray(coeffs);
+        cv::undistort(img, undistortImg, Frame::K, distortCoeffs);
+        
+        // cv::imshow("display original img", img);
+        // cv::waitKey(0);
+        // cv::imshow("display undistorted img", undistortImg);
+        // cv::waitKey(0);
+
+        graph.AddFrame(undistortImg);
+        countId += 1;
+        if (countId >= 15) break;
+    }
+
+    graph.Optimize();
+
+    MosaicCamera mosaic {1.5708,2000,2000,cv::Mat::eye(cv::Size(3,3), CV_32F)};
+    for (auto pitch : {0}) {
+        // mosaic.Panorama(Utility::PitchToRotation(pitch), graph.frames);
+        std::cout << "compute panorama" << std::endl;
+    }
 }
 
 void testSphericalMapping(std::vector<std::string> &img_path) {

@@ -10,6 +10,8 @@ public:
 
     void Visualize(cv::Mat refRotation, std::vector<Frame *>frames);
 
+    void Panorama(cv::Mat refRotation, std::vector<Frame *>frames);
+
     ~MosaicCamera();
 
 private:
@@ -17,5 +19,7 @@ private:
     float fov, width, height;
     cv::Mat refRotation;
     cv::Mat virtualK;
+
+    cv::Mat makeMask(cv::Size sz, std::vector<cv::Point2f> imageCorners, cv::Mat H);
 
 };
